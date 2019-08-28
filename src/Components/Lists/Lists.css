@@ -1,0 +1,19 @@
+.listBlock{
+    padding: 10px;
+    margin: 20px;
+    background-color:#d4fcf1;
+    display: flex;
+    justify-content: space-between;
+}
+
+button{
+    margin: 0px 10px;
+}
+
+h1{
+    position: absolute;
+}
+
+.nameOfList{
+    width: 300px; 
+}
