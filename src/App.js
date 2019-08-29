@@ -9,55 +9,45 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 const HISTORY = createBrowserHistory();
 
-list1 = {
+const LIST_FOR_B_DAY = {
   name: 'На день рождения',
-  listArray: ['Свечи', 'Шарики', 'Конфеты', 'Лента', 'Колпаки', 'Конфетти']
+  productsList: ['Свечи', 'Шарики', 'Конфеты', 'Лента', 'Колпаки', 'Конфетти']
 }
 
-list2 = {
+const LIST_FOR_WEEK = {
   name: 'На неделю',
-  listArray: ['Картофель', 'Помидоры', 'Огурцы', 'Яблоки', 'Мясо', 'Хлеб', 'Фасоль', 'Зелень']
+  productsList: ['Картофель', 'Помидоры', 'Огурцы', 'Яблоки', 'Мясо', 'Хлеб', 'Фасоль', 'Зелень']
 }
 
-list3 = {
+const LIST_FOR_CHILDREN = {
   name: 'Детям',
-  listArray: ['Джинсы', 'Футболка', 'Толстовка', 'Кроссовки']
+  productsList: ['Джинсы', 'Футболка', 'Толстовка', 'Кроссовки']
 }
-
-const ARRAY = [list1, list2, list3].map((item,index)=>{item; id:index});
 
 
 class App extends Component {
-  state = {
-    listMas=[]
-  }
-
-
-
   componentWillMount() {
-    localStorage.setItem('listsArray', 'ARRAY')
+    const localStorageArray = JSON.stringify(
+      [LIST_FOR_B_DAY, LIST_FOR_WEEK, LIST_FOR_CHILDREN].map(
+        (item, index) => {
+          return { ...item, id: index }
+        }
+      )
+    );
+    localStorage.setItem('listsArray', localStorageArray);
   }
 
-  componentDidMount(){
-    if (!(this.state.listMas).length) {
-      this.setState({ listMas: localStorage.getItem('listsArray') });
-    }
-  }
   render() {
-    let mas = this.state.listMas;
     return (
       <Router history={HISTORY}>
         <Menu />
         <Route exact path="/" component={Home} />
-        <Route path="/mainList" component={MainList} lists={mas} />
+        <Route path="/mainList" component={MainList} />
         <Route path="/about" component={About} />
-        <Route path="/mainList/id" component={ShoppingList} />
+        {/* <Route path="/mainList/:id" component={ShoppingList} /> */}
       </Router>
     )
   }
-
-
-
 }
 
 export default App;

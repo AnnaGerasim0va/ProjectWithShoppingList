@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
+import { Router } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './Lists.css'
-import ListContent from './ListContent'
 
 
-const getListContent = () => {
-    console.log('Good')
-    return(
-        <ListContent />
-    )
-}
+class ShoppingList extends Component {
+    state = { isListShown: false }
 
-const ShoppingList = (props) => {
-    return (
-        <div className='listBlock'>
-            <div>{props.nameOfList}</div>
-            <div><Link to ="/mainList/id">Открыть</Link>
-                <button>X</button></div>
-        </div>
-    )
+    toggleShowList = () => {
+        const { isListShown } = this.state;
+        this.setState({ isListShown: !isListShown })
+    }
+
+    render() {
+        const { isListShown } = this.state;
+        const { name, id, productsList } = this.props;
+        return (
+            <div className='listBlock' onClick={this.toggleShowList}>
+                <div>{name}</div>
+                <ul>
+                    {isListShown && productsList.map((product, index) => <li key={index}>{product}</li>)}
+                </ul>
+            </div>
+        )
+    }
 }
 
 export default ShoppingList;  

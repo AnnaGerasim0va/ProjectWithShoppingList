@@ -11,23 +11,19 @@ const history = createBrowserHistory();
     arr.map(item, index)=>{}
 }*/
 
-class MainList extends Component {  
-    render() {
+const MainList = () => {
+    const listsArray = JSON.parse(localStorage.getItem('listsArray'));
 
-        
-        return (
-            <div>
-                <div><h2>Списки покупок</h2></div>
-                
-                    <ShoppingList nameOfList='На день рождения' />
-                    <ShoppingList nameOfList='Детям' />
-                    <ShoppingList nameOfList='На неделю' />
-               
-
-            </div>
-        )
-    }
-
+    return (
+        <div>
+            <div><h2>Списки покупок</h2></div>
+            {listsArray.map(
+                (list) => {
+                    return <ShoppingList {...list} />
+                }
+            )}
+        </div>
+    )
 }
 
 
