@@ -6,8 +6,15 @@ import './Lists.css';
 
 const history = createBrowserHistory();
 
-class MainList extends Component {
+/*const getArray = () =>{
+    let arr = this.props.mas;
+    arr.map(item, index)=>{}
+}*/
+
+class MainList extends Component {  
     render() {
+
+        
         return (
             <div>
                 <div><h2>Списки покупок</h2></div>

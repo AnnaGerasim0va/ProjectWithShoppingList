@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-const addToCounter = () => {
-    let cnt = localStorage.getItem('count');
-    ++cnt;
-    localStorage.setItem('count', cnt);
-}
 
 const Home = () => {
+
+    const addToCounter = () => {
+        let cnt = localStorage.getItem('count');
+        ++cnt;
+        localStorage.setItem('count', cnt);
+    }
+
     return (
         <div>
             <h2>Home</h2>

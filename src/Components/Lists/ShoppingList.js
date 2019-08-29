@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Lists.css'
 import ListContent from './ListContent'
 
@@ -14,7 +15,7 @@ const ShoppingList = (props) => {
     return (
         <div className='listBlock'>
             <div>{props.nameOfList}</div>
-            <div><button onClick="getListContent">Открыть</button>
+            <div><Link to ="/mainList/id">Открыть</Link>
                 <button>X</button></div>
         </div>
     )
