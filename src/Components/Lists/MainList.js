@@ -16,10 +16,10 @@ const MainList = () => {
 
     return (
         <div>
-            <div><h2>Списки покупок</h2></div>
+            <div className="header"><h2>Списки покупок</h2></div>
             {listsArray.map(
-                (list) => {
-                    return <ShoppingList {...list} />
+                (list, index) => {
+                    return <ShoppingList key = {index} {...list} />
                 }
             )}
         </div>

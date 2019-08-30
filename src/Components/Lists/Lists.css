@@ -1,19 +1,37 @@
-.listBlock{
+.listBlock {
     padding: 10px;
     margin: 20px;
-    background-color:#d4fcf1;
+    background-color: #d4fcf1;
     display: flex;
     justify-content: space-between;
+    border: 1px solid aquamarine;
+    border-radius: 7px;
+    box-shadow: 10px 10px 5px rgb(49, 100, 100);
 }
 
-button{
+.listBlock:hover{
+    cursor: pointer;
+    background-color: #b3fae6;
+}
+
+.listBlock>ul {
+    display:flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+}
+
+.listBlock>li{
+    margin: 20px;
+}
+
+button {
     margin: 0px 10px;
 }
 
-h1{
-    position: absolute;
+h2 {
+    text-align: center;
 }
 
-.nameOfList{
-    width: 300px; 
+.nameOfList {
+    width: 300px;
 }
