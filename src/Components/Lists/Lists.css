@@ -9,10 +9,10 @@
     box-shadow: 10px 10px 5px rgb(49, 100, 100);
 }
 
-.listBlock:hover{
+/* .listBlock:hover{
     cursor: pointer;
     background-color: #b3fae6;
-}
+} */
 
 .listBlock>ul {
     display:flex;
@@ -20,8 +20,13 @@
     justify-content: center;
 }
 
-.listBlock>li{
+.element{
     margin: 20px;
+}
+
+.element:hover{
+    cursor: pointer;
+    text-decoration: line-through;
 }
 
 button {

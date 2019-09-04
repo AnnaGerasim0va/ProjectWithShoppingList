@@ -4,26 +4,17 @@ import { Link } from 'react-router-dom';
 import './Lists.css'
 
 
-class ShoppingList extends Component {
-    state = { isListShown: false }
+const ShoppingList = props => {
+   const {id} = props.match.params;
+   const listsArray = JSON.parse(localStorage.getItem('listsArray'));
+   const currentList = listsArray.find(list=> list.id == id);
+const {productsList} = currentList;
+return <div>
+    <div><Link to="/mainList/">Назад</Link></div>
+    <div className="listBlock"><ul>{productsList.map((product, index) => <li className="element" onClick ="">{product}</li>)}</ul></div>
+    </div>
 
-    toggleShowList = () => {
-        const { isListShown } = this.state;
-        this.setState({ isListShown: !isListShown })
-    }
 
-    render() {
-        const { isListShown } = this.state;
-        const { name, id, productsList } = this.props;
-        return (
-            <div className='listBlock' onClick={this.toggleShowList}>
-                <div>{name}</div>
-                <ul>
-                    {isListShown && productsList.map((product, index) => <li key={index}>{product}</li>)}
-                </ul>
-            </div>
-        )
-    }
 }
 
 export default ShoppingList;  

@@ -19,7 +19,8 @@ const MainList = () => {
             <div className="header"><h2>Списки покупок</h2></div>
             {listsArray.map(
                 (list, index) => {
-                    return <ShoppingList key = {index} {...list} />
+                    const {id, name} = list;
+                    return  <div><Link key={index} to={`/mainList/${id}`}>{name}</Link></div>
                 }
             )}
         </div>

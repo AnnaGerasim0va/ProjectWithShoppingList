@@ -3,6 +3,7 @@ import { Router, Route, Link } from 'react-router-dom';
 import "./App.css";
 import Home from './Components/Home';
 import MainList from './Components/Lists/MainList';
+import ShoppingList from './Components/Lists/ShoppingList'
 import About from './Components/About';
 import Menu from './Components/Menu/Menu';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -34,7 +35,11 @@ class App extends Component {
         }
       )
     );
-    localStorage.setItem('listsArray', localStorageArray);
+
+    if (!(localStorage.getItem('listsArray'))) {
+      localStorage.setItem('listsArray', localStorageArray);
+    }
+
   }
 
   render() {
@@ -42,9 +47,9 @@ class App extends Component {
       <Router history={HISTORY}>
         <Menu />
         <Route exact path="/" component={Home} />
-        <Route path="/mainList" component={MainList} />
+        <Route exact path="/mainList" component={MainList} />
         <Route path="/about" component={About} />
-        {/* <Route path="/mainList/:id" component={ShoppingList} /> */}
+        <Route path="/mainList/:id" component={ShoppingList} />
       </Router>
     )
   }
