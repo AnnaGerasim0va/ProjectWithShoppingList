@@ -11,20 +11,37 @@ const history = createBrowserHistory();
     arr.map(item, index)=>{}
 }*/
 
-const MainList = () => {
-    const listsArray = JSON.parse(localStorage.getItem('listsArray'));
+class MainList extends Component {
+    state = {
+        listsArray: JSON.parse(localStorage.getItem('listsArray'))
+    }
 
-    return (
-        <div>
-            <div className="header"><h2>Списки покупок</h2></div>
-            {listsArray.map(
-                (list, index) => {
-                    const {id, name} = list;
-                    return  <div><Link key={index} to={`/mainList/${id}`}>{name}</Link></div>
-                }
-            )}
-        </div>
-    )
+    deleteElement = (id) => () => {
+        const { listsArray } = this.state;
+        
+        // listsArray.filter(item => {console.log(id!==item.id);
+        //      return id!==item.id});
+        this.setState({ listsArray: listsArray.filter(item => {return item.id !== id}) })
+    }
+
+    render() {
+        const { listsArray } = this.state;
+        
+        return (
+            <div>
+                <div className="header"><h2>Списки покупок</h2></div>
+                {listsArray.map(
+                    (list, index) => {
+                        const { id, name } = list;
+                        return <div className="listBlock"><Link key={index} to={`/mainList/${id}`}>{name}</Link>
+                            <button onClick={this.deleteElement(id)}>Удалить</button>
+                        </div>
+                    }
+                )}
+            </div>
+        )
+    }
+
 }
 
 
