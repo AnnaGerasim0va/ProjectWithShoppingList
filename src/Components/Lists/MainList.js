@@ -21,7 +21,10 @@ class MainList extends Component {
         
         // listsArray.filter(item => {console.log(id!==item.id);
         //      return id!==item.id});
-        this.setState({ listsArray: listsArray.filter(item => {return item.id !== id}) })
+        let isDeletion = window.confirm("Вы действительно хотите удалить список?");
+        if(isDeletion){
+            this.setState({ listsArray: listsArray.filter(item => {return item.id !== id}) })
+        }
     }
 
     render() {
