@@ -11,17 +11,6 @@ export const ListBlock = styled.div`
   box-shadow: 10px 10px 5px rgb(49, 100, 100);
 `;
 
-/* .listBlock:hover{
-    cursor: pointer;
-    background-color: #b3fae6;
-} */
-
-// .listBlock>ul {
-//     display:flex;
-//     flex-direction: column-reverse;
-//     justify-content: center;
-// }
-
 export const Element_li = styled.li`
   position: relative;
   display: flex;
