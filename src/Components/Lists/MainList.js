@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { Router, Route, Link } from "react-router-dom";
-import createBrowserHistory from "history/createBrowserHistory";
-import ShoppingList from "./ShoppingList";
-import { ListBlock } from "./ListsStyles.js";
-
-const history = createBrowserHistory();
+import {Link } from "react-router-dom";
+import { ListBlock } from "./ListsStyles";
+import CreateNewList from "./CreateNewList";
+import {Header} from "./ListsStyles.js";
 
 class MainList extends Component {
   state = {
-    listsArray: JSON.parse(localStorage.getItem("listsArray"))
+    listsArray: JSON.parse(localStorage.getItem("listsArray")),
+    newListName: ""
   };
 
   deleteElement = id => () => {
@@ -26,14 +25,37 @@ class MainList extends Component {
     }
   };
 
+  handleChange = event => {
+    console.log("event", event.target.value);
+    this.setState({ newListName: event.target.value });
+  };
+
+  handleListCreate = () => {
+    const { newListName } = this.state;
+    if (newListName) {
+      const listsArray = JSON.parse(localStorage.getItem("listsArray"));
+      listsArray.push({
+        name: newListName,
+        date: {},
+        productsList: [],
+        id: listsArray.length
+      });
+      localStorage.setItem("listsArray", JSON.stringify(listsArray));
+      console.log(listsArray);
+      this.setState({ listsArray, newListName: "" });
+    }
+    
+  };
+
   render() {
-    const { listsArray } = this.state;
+    const { listsArray, newListName } = this.state;
 
     return (
       <div>
         <div className="header">
-          <h2>Списки покупок</h2>
+          <Header>Списки покупок</Header>
         </div>
+        <CreateNewList newListName={newListName} handleListCreate={this.handleListCreate} handleChange={this.handleChange}  />
         {listsArray.map((list, index) => {
           const { id, name } = list;
           return (

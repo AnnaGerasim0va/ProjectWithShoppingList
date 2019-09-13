@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Router, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./Components/Home";
+import Home from "./Components/Header/Home";
 import MainList from "./Components/Lists/MainList";
 import ShoppingList from "./Components/Lists/ShoppingList";
-import About from "./Components/About";
-import Menu from "./Components/Menu/Menu";
+import About from "./Components/Header/About";
+import Menu from "./Components/Header/Menu";
 import createBrowserHistory from "history/createBrowserHistory";
 
 const HISTORY = createBrowserHistory();

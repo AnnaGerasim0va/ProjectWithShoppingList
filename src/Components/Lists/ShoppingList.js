@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Product from "./Product";
 import {
   ListBlock,
   Element_ul,
   Element_li,
-  Button,
-  Title
-} from "./ListsStyles.js";
+  ButtonChange,
+  ButtonDelete,
+  Title,
+  ChangeBlock
+} from "./ListsStyles";
 
 class ShoppingList extends Component {
   constructor(props) {
     super(props);
     const { id } = this.props.match.params;
     const listsArray = JSON.parse(localStorage.getItem("listsArray"));
+    console.log("listsArray", listsArray);
     // Возвращает данные выбранного списка
     const currentList = listsArray.find(list => list.id == id);
     this.state = {
@@ -23,7 +27,6 @@ class ShoppingList extends Component {
 
   deleteElement = index => event => {
     //избегаем всплытия markElement
-    event.stopPropagation();
     const { currentList } = this.state;
     // удаляем элемент по индексу
     currentList.productsList.splice(index, 1);
@@ -39,32 +42,39 @@ class ShoppingList extends Component {
     this.setState({ currentList });
   };
 
+  submitDescriptionChanges = (product, id, newName) => () => {
+    const { currentList } = this.state;
+    currentList.productsList.splice(id, 1, product);
+    this.setState({ currentList });
+  };
+
   render() {
     const { currentList } = this.state;
     const { productsList } = currentList;
 
+    console.log("productsList", productsList);
+
     return (
-      <div>
+      <>
         <div>
           <Link to="/mainList/">Назад</Link>
         </div>
         <ListBlock>
           <Element_ul>
-            {productsList.map(
-              (product, index) => (
-                <Element_li
-                  key={index + product.name}
-                  isDone={product.isDone}
-                  onClick={this.markElement(index)}
-                >
-                  <Title>{product.name}</Title>
-                  <Button onClick={this.deleteElement(index)}>х</Button>
-                </Element_li>
-              )
-            )}
+            {productsList.map((product, index) => (
+              <Product
+                key={index + product.name}
+                productIndex={index}
+                isDone={product.isDone}
+                onProductClick={this.markElement}
+                onDeleteClick={this.deleteElement}
+                onSaveClick={this.submitDescriptionChanges}
+                product={product}
+              />
+            ))}
           </Element_ul>
         </ListBlock>
-      </div>
+      </>
     );
   }
 }

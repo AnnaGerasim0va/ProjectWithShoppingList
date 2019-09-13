@@ -11,7 +11,7 @@ export const ListBlock = styled.div`
   box-shadow: 10px 10px 5px rgb(49, 100, 100);
 `;
 
-export const Element_li = styled.li`
+export const ElementLi = styled.li`
   position: relative;
   display: flex;
   justify-content: center;
@@ -47,29 +47,47 @@ export const Element_ul = styled.ul`
   list-style: none;
 `;
 
-export const Button = styled.button`
-  padding: 3px 4px 4px 4px;
+export const ButtonDelete = styled.button`
+  padding: 4px 7px 5px 7px;
   background-color: #c42323;
   color: white;
+  margin: 0px 10px;
   :hover {
     cursor: pointer;
     background-color: #a81919;
   }
 `;
 
-// .element:hover{
-//     cursor: pointer;
-//     text-decoration: line-through;
-// }
+export const ButtonChange = styled.button`
+  padding: 2px 4px 3px 4px;
+  background-color: #4ead79;
+  color: white;
+  :hover {
+    cursor: pointer;
+    background-color: #3d9163;
+  }
+`;
 
-// button {
-//     margin: 0px 10px;
-// }
+export const Header = styled.h2`
+  text-align: center;
+`;
 
-// h2 {
-//     text-align: center;
-// }
+export const InputForm = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+`;
 
-// .nameOfList {
-//     width: 300px;
-// }
+export const InputField = styled.input`
+  padding: 5px 200px;
+  background-color: #e8fff2;
+`;
+export const ChangeBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const DescriptionBlock = styled.div`
+  padding:15px 50px;
+`;

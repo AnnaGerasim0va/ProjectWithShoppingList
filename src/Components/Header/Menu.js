@@ -1,21 +1,24 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Header, HeaderButton } from "../Header/HeaderStyles";
 
 class Menu extends Component {
   render() {
     return (
       <>
-        <ul className="main">
-          <li>
+        <Header>
+          <HeaderButton>
             <Link to="/">Главная</Link>
-          </li>
-          <li>
+          </HeaderButton>
+
+          <HeaderButton>
             <Link to="/mainList">Списки покупок</Link>
-          </li>
-          <li>
+          </HeaderButton>
+
+          <HeaderButton>
             <Link to="/about">About</Link>
-          </li>
-        </ul>
+          </HeaderButton>
+        </Header>
         <hr />
       </>
     );
