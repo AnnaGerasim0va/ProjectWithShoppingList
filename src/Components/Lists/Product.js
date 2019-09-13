@@ -10,14 +10,25 @@ import {
 } from "./ListsStyles";
 
 class Product extends Component {
-  state = {
-    isExpanded: false,
-    newName: "",
-    description: {
-      quantity: "",
-      price: ""
-    }
-  };
+  constructor(props) {
+    super(props);
+    /**
+     * поле product{name - str, desc - obj, id - num}
+     * @param name = имя продукта, string
+     * @param desc - описание продукта, object
+     * @param id - идентификатор продукта, number
+     */
+    this.state = {
+      product: props.product,
+      newProduct: props.product,
+      isExpanded: false,
+      newName: "",
+      description: {
+        quantity: "",
+        price: ""
+      }
+    };
+  }
 
   changeDescription = type => event => {
     const { description } = this.state;
@@ -26,8 +37,9 @@ class Product extends Component {
   };
 
   changeName = event => {
-    console.log("newName", event.target.value);
-    this.setState({ newName: event.target.value });
+    const { newProduct } = this.state;
+    newProduct.name = event.target.value;
+    this.setState({ newProduct });
   };
 
   handleExpand = () => event => {
@@ -40,16 +52,18 @@ class Product extends Component {
     const {
       isDone,
       onProductClick,
-      product,
       onDeleteClick,
       onSaveClick,
       productIndex
     } = this.props;
-    const { isExpanded, 
+    const {
+      product,
+      newProduct,
+      isExpanded,
       newName,
       description,
-      description:{quantity,price}, } = this.state;
-    console.log(this.props);
+      description: { quantity, price }
+    } = this.state;
 
     return (
       <ElementLi isDone={isDone} onClick={onProductClick(productIndex)}>
@@ -57,18 +71,20 @@ class Product extends Component {
         <ButtonChange onClick={this.handleExpand()}>🖍</ButtonChange>
         <ButtonDelete onClick={onDeleteClick(productIndex)}>х</ButtonDelete>
         {isExpanded ? (
-          <NewDescription product={product}
-           description={description}
-           changeDescription={this.changeDescription}
-           changeName={this.changeName}
-           onSaveClick={onSaveClick}
-           id={productIndex}
-           />
+          <NewDescription
+            product={newProduct}
+            description={description}
+            changeDescription={this.changeDescription}
+            changeName={this.changeName}
+            onSaveClick={onSaveClick}
+            id={productIndex}
+          />
         ) : (
-          <Description product={product} 
-          description={description}
-          id={productIndex}
-           />
+          <Description
+            product={product}
+            description={description}
+            id={productIndex}
+          />
         )}
       </ElementLi>
     );

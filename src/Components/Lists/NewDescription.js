@@ -6,7 +6,6 @@ class Description extends Component {
     isExpanded: false
   };
 
-
   render() {
     const {
       onSaveClick,
@@ -15,13 +14,12 @@ class Description extends Component {
       id,
       newName,
       description,
-      description:{quantity,price},
+      description: { quantity, price },
       changeDescription,
       changeName
     } = this.props;
     console.log("product", product);
     console.log("description", description);
-
 
     return (
       <ChangeBlock>
@@ -40,7 +38,9 @@ class Description extends Component {
           value={price}
           onChange={changeDescription("price")}
         />
-        <button onClick={onSaveClick(product,id,newName)}>Сохранить изменения</button>
+        <button onClick={onSaveClick(product, id)}>
+          Сохранить изменения
+        </button>
       </ChangeBlock>
     );
   }

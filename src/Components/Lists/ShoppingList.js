@@ -16,7 +16,6 @@ class ShoppingList extends Component {
     super(props);
     const { id } = this.props.match.params;
     const listsArray = JSON.parse(localStorage.getItem("listsArray"));
-    console.log("listsArray", listsArray);
     // Возвращает данные выбранного списка
     const currentList = listsArray.find(list => list.id == id);
     this.state = {
@@ -42,7 +41,7 @@ class ShoppingList extends Component {
     this.setState({ currentList });
   };
 
-  submitDescriptionChanges = (product, id, newName) => () => {
+  submitDescriptionChanges = () => (product, id) => {
     const { currentList } = this.state;
     currentList.productsList.splice(id, 1, product);
     this.setState({ currentList });
@@ -51,8 +50,6 @@ class ShoppingList extends Component {
   render() {
     const { currentList } = this.state;
     const { productsList } = currentList;
-
-    console.log("productsList", productsList);
 
     return (
       <>
