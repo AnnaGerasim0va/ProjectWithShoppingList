@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Header, HeaderButton } from "../Header/HeaderStyles";
+import { Header, HeaderButton, StyledLink } from "../Header/HeaderStyles";
 
 class Menu extends Component {
   render() {
@@ -8,15 +7,15 @@ class Menu extends Component {
       <>
         <Header>
           <HeaderButton>
-            <Link to="/">Главная</Link>
+            <StyledLink to="/">Главная</StyledLink>
           </HeaderButton>
 
           <HeaderButton>
-            <Link to="/mainList">Списки покупок</Link>
+            <StyledLink to="/mainList">Списки покупок</StyledLink>
           </HeaderButton>
 
           <HeaderButton>
-            <Link to="/about">About</Link>
+            <StyledLink to="/about">About</StyledLink>
           </HeaderButton>
         </Header>
         <hr />

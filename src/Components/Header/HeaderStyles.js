@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Block = styled.div`
   display: flex;
@@ -15,9 +16,15 @@ export const Header = styled.ul`
   margin: 0px;
 `;
 export const HeaderButton = styled.li`
-  padding: 30px 80px;
   text-decoration: none;
   :hover {
     background-color: #67ebc5;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  display: inline-block;
+  padding: 30px 80px;
+  text-decoration: none;
+  color: black;
 `;

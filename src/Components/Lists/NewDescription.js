@@ -10,37 +10,26 @@ class Description extends Component {
     const {
       onSaveClick,
       product,
-      product: { name, isDone },
+      product: { name, isDone, description },
       id,
       newName,
-      description,
-      description: { quantity, price },
       changeDescription,
       changeName
     } = this.props;
-    console.log("product", product);
-    console.log("description", description);
-
     return (
       <ChangeBlock>
-        <input
-          placeholder="Введите имя"
-          value={newName}
-          onChange={changeName}
-        />
+        <input placeholder="Введите имя" value={name} onChange={changeName()} />
         <input
           placeholder="Введите количество"
-          value={quantity}
+          value={description ? description.quantity : ""}
           onChange={changeDescription("quantity")}
         />
         <input
           placeholder="Введите цену"
-          value={price}
+          value={description ? description.price : ""}
           onChange={changeDescription("price")}
         />
-        <button onClick={onSaveClick(product, id)}>
-          Сохранить изменения
-        </button>
+        <button onClick={onSaveClick(product, id)}>Сохранить изменения</button>
       </ChangeBlock>
     );
   }

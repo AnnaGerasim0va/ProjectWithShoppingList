@@ -21,25 +21,33 @@ class Product extends Component {
     this.state = {
       product: props.product,
       newProduct: props.product,
-      isExpanded: false,
-      newName: "",
-      description: {
-        quantity: "",
-        price: ""
-      }
+      isExpanded: false
     };
   }
 
   changeDescription = type => event => {
-    const { description } = this.state;
-    description[type] = event.target.value;
-    this.setState({ description });
+    event.stopPropagation();
+    const { newProduct } = this.state;
+    const newDescription = {
+      [type]: event.target.value
+    };
+    this.setState({
+      newProduct: {
+        ...newProduct,
+        description: { ...newProduct.description, ...newDescription }
+      }
+    });
   };
 
-  changeName = event => {
+  changeName = () => event => {
+    event.stopPropagation();
     const { newProduct } = this.state;
-    newProduct.name = event.target.value;
-    this.setState({ newProduct });
+    this.setState({
+      newProduct: {
+        ...newProduct,
+        name: event.target.value
+      }
+    });
   };
 
   handleExpand = () => event => {
@@ -56,24 +64,18 @@ class Product extends Component {
       onSaveClick,
       productIndex
     } = this.props;
-    const {
-      product,
-      newProduct,
-      isExpanded,
-      newName,
-      description,
-      description: { quantity, price }
-    } = this.state;
+    const { product, newProduct, isExpanded, newName } = this.state;
+    console.log("newProduct", newProduct);
+    console.log("product", product);
 
     return (
-      <ElementLi isDone={isDone} onClick={onProductClick(productIndex)}>
-        <Title>{product.name}</Title>
+      <ElementLi isDone={isDone}>
+        <Title onClick={onProductClick(productIndex)}>{product.name}</Title>
         <ButtonChange onClick={this.handleExpand()}>🖍</ButtonChange>
         <ButtonDelete onClick={onDeleteClick(productIndex)}>х</ButtonDelete>
         {isExpanded ? (
           <NewDescription
             product={newProduct}
-            description={description}
             changeDescription={this.changeDescription}
             changeName={this.changeName}
             onSaveClick={onSaveClick}
@@ -82,7 +84,6 @@ class Product extends Component {
         ) : (
           <Description
             product={product}
-            description={description}
             id={productIndex}
           />
         )}

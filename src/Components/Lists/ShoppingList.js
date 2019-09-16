@@ -17,7 +17,7 @@ class ShoppingList extends Component {
     const { id } = this.props.match.params;
     const listsArray = JSON.parse(localStorage.getItem("listsArray"));
     // Возвращает данные выбранного списка
-    const currentList = listsArray.find(list => list.id == id);
+    const currentList = listsArray.find(list => list.id === Number(id));
     this.state = {
       listsArray,
       currentList
@@ -26,6 +26,7 @@ class ShoppingList extends Component {
 
   deleteElement = index => event => {
     //избегаем всплытия markElement
+    event.stopPropagation();
     const { currentList } = this.state;
     // удаляем элемент по индексу
     currentList.productsList.splice(index, 1);
@@ -41,9 +42,13 @@ class ShoppingList extends Component {
     this.setState({ currentList });
   };
 
-  submitDescriptionChanges = () => (product, id) => {
+  submitDescriptionChanges = (product, id) => () => {
+    // event.stopPropagation();
     const { currentList } = this.state;
-    currentList.productsList.splice(id, 1, product);
+    const oldProduct = currentList.productsList.splice(id, 1, product);
+    console.log("old", oldProduct);
+    console.log("product", product);
+
     this.setState({ currentList });
   };
 
