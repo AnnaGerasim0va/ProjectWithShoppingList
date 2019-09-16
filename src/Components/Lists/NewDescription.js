@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ChangeBlock } from "./ListsStyles.js";
+import styled from "styled-components";
 
 class Description extends Component {
   state = {
@@ -12,7 +12,6 @@ class Description extends Component {
       product,
       product: { name, isDone, description },
       id,
-      newName,
       changeDescription,
       changeName
     } = this.props;
@@ -34,5 +33,11 @@ class Description extends Component {
     );
   }
 }
+
+export const ChangeBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default Description;

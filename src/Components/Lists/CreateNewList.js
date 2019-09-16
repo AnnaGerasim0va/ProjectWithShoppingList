@@ -1,5 +1,5 @@
+import styled from "styled-components";
 import React, { Component } from "react";
-import {InputForm, InputField} from "./ListsStyles.js";
 
 class CreateNewList extends Component {
   render() {
@@ -17,5 +17,14 @@ class CreateNewList extends Component {
     );
   }
 }
+
+export const InputForm = styled.div`
+display:flex;
+justify-content:center;
+`;
+export const InputField = styled.input`
+padding:5px 200px;
+background-color:#e6fff2;
+`;
 
 export default CreateNewList;

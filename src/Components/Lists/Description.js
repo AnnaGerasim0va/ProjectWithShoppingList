@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import {
-    ChangeBlock,
-    DescriptionBlock
-  } from "./ListsStyles";
+import styled from "styled-components";
 
 class Description extends Component {
 
@@ -20,5 +17,15 @@ class Description extends Component {
           )
       }
 }
+
+export const DescriptionBlock = styled.div`
+  padding: 15px 50px;
+`;
+
+export const ChangeBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default Description;

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import {Link } from "react-router-dom";
-import { ListBlock } from "./ListsStyles";
 import CreateNewList from "./CreateNewList";
-import {Header} from "./ListsStyles.js";
+import styled from "styled-components";
 
 class MainList extends Component {
   state = {
@@ -71,5 +70,20 @@ class MainList extends Component {
     );
   }
 }
+
+export const Header = styled.h2`
+  text-align: center;
+`;
+
+export const ListBlock = styled.div`
+  padding: 10px;
+  margin: 20px;
+  background-color: #d4fcf1;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid aquamarine;
+  border-radius: 7px;
+  box-shadow: 10px 10px 5px rgb(49, 100, 100);
+`;
 
 export default MainList;

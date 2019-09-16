@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import NewDescription from "./NewDescription";
 import Description from "./Description";
-import {
-  ListBlock,
-  ElementLi,
-  ButtonChange,
-  ButtonDelete,
-  Title
-} from "./ListsStyles";
+import styled, { css } from "styled-components";
 
 class Product extends Component {
   constructor(props) {
@@ -62,15 +56,17 @@ class Product extends Component {
       onProductClick,
       onDeleteClick,
       onSaveClick,
-      productIndex
+      productIndex,
     } = this.props;
     const { product, newProduct, isExpanded, newName } = this.state;
     console.log("newProduct", newProduct);
     console.log("product", product);
 
     return (
-      <ElementLi isDone={isDone}>
-        <Title onClick={onProductClick(productIndex)}>{product.name}</Title>
+      <ListElement>
+        <Title isDone={isDone} onClick={onProductClick(productIndex)}>
+          {product.name}
+        </Title>
         <ButtonChange onClick={this.handleExpand()}>🖍</ButtonChange>
         <ButtonDelete onClick={onDeleteClick(productIndex)}>х</ButtonDelete>
         {isExpanded ? (
@@ -82,14 +78,66 @@ class Product extends Component {
             id={productIndex}
           />
         ) : (
-          <Description
-            product={product}
-            id={productIndex}
-          />
+          <Description product={product} id={productIndex} />
         )}
-      </ElementLi>
+
+      </ListElement>
     );
   }
 }
+
+export const Title = styled.p`
+  font-size: 14px;
+  margin: 0 10px;
+  ${p =>
+    p.isDone &&
+    css`
+       {
+        text-decoration: line-through;
+        :before {
+          content: "✔   ";
+          color: green;
+        }
+      }
+    `}
+
+  :hover {
+    color: green;
+    cursor: pointer;
+  }
+`;
+
+export const ListElement = styled.li`
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #36bfa4;
+  border-radius: 5px;
+  background: #befae9;
+  padding: 10px;
+  margin: 10px;
+`;
+
+export const ButtonDelete = styled.button`
+  padding: 4px 7px 5px 7px;
+  background-color: #c42323;
+  color: white;
+  margin: 0px 10px;
+  :hover {
+    cursor: pointer;
+    background-color: #a81919;
+  }
+`;
+
+export const ButtonChange = styled.button`
+  padding: 2px 4px 3px 4px;
+  background-color: #4ead79;
+  color: white;
+  :hover {
+    cursor: pointer;
+    background-color: #3d9163;
+  }
+`;
 
 export default Product;
