@@ -47,7 +47,7 @@ class AddProduct extends Component {
         <ButtonAdd onClick={this.handleExpanedForAdd}>➕</ButtonAdd>
         {isExpandedForAdd && (
           <AddedBlock>
-            <div>Создание нового продукта</div>
+            <span>Создание нового продукта</span>
             <NewDescription
               onSaveClick={onSaveClick}
               changeDescription={this.AddDescription}
@@ -63,24 +63,26 @@ class AddProduct extends Component {
   }
 }
 
-export const ButtonAdd = styled.button`
+export const ButtonAdd = styled.div`
+  display: inline-block;
   padding: 8px 10px 9px 10px;
   margin: 15px 10px;
+  box-shadow: 2px 2px 2px #7bedbc;
   font-size: 20px;
-  background-color: #defcef;
+  background-color: #a7fcd7;
   :hover {
     cursor: pointer;
     background-color: #d4ffdf;
+    box-shadow: 2px 2px 2px #aff0d4;
   }
 `;
 
 export const AddedBlock = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
-  border: 2px solid #36bfa4;
-  border-radius: 5px;
-  background: #befae9;
+  align-items: center; */
+  background-color: #a7fcd7;
+  box-shadow: 3px 3px 5px #7bedbc;
   padding: 10px;
   margin: 10px;
 `;

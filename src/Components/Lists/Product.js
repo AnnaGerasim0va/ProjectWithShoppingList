@@ -56,7 +56,7 @@ class Product extends Component {
       onProductClick,
       onDeleteClick,
       onSaveClick,
-      productIndex,
+      productIndex
     } = this.props;
     const { product, newProduct, isExpanded, newName } = this.state;
     console.log("newProduct", newProduct);
@@ -64,11 +64,14 @@ class Product extends Component {
 
     return (
       <ListElement>
-        <Title isDone={isDone} onClick={onProductClick(productIndex)}>
-          {product.name}
-        </Title>
-        <ButtonChange onClick={this.handleExpand()}>🖍</ButtonChange>
         <ButtonDelete onClick={onDeleteClick(productIndex)}>х</ButtonDelete>
+        <StyledDiv>
+          <Title isDone={isDone} onClick={onProductClick(productIndex)}>
+            {product.name}
+          </Title>
+          <ButtonChange onClick={this.handleExpand()}>🖍</ButtonChange>
+        </StyledDiv>
+
         {isExpanded ? (
           <NewDescription
             product={newProduct}
@@ -80,14 +83,13 @@ class Product extends Component {
         ) : (
           <Description product={product} id={productIndex} />
         )}
-
       </ListElement>
     );
   }
 }
 
 export const Title = styled.p`
-  font-size: 14px;
+  font-size: 20px;
   margin: 0 10px;
   ${p =>
     p.isDone &&
@@ -109,17 +111,23 @@ export const Title = styled.p`
 
 export const ListElement = styled.li`
   width: 25%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #36bfa4;
-  border-radius: 5px;
-  background: #befae9;
+  background-color: #a7fcd7;
+  box-shadow: 3px 3px 5px #7bedbc;
   padding: 10px;
   margin: 10px;
 `;
 
+export const StyledDiv = styled.div`
+  margin: 1px;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ButtonDelete = styled.button`
+  position: relative;
+  left: 85%;
   padding: 4px 7px 5px 7px;
   background-color: #c42323;
   color: white;

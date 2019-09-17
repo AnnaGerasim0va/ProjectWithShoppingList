@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, HeaderButton, StyledLink } from "../Header/HeaderStyles";
+import { Header, HeaderButton, StyledLink} from "../Header/HeaderStyles";
 
 class Menu extends Component {
   render() {
@@ -18,7 +18,6 @@ class Menu extends Component {
             <StyledLink to="/about">About</StyledLink>
           </HeaderButton>
         </Header>
-        <hr />
       </>
     );
   }

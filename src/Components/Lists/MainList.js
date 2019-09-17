@@ -50,7 +50,7 @@ class MainList extends Component {
     const { listsArray, newListName } = this.state;
 
     return (
-      <div>
+      <StyledDiv>
         <div className="header">
           <Header>Списки покупок</Header>
         </div>
@@ -66,10 +66,14 @@ class MainList extends Component {
             </ListBlock>
           );
         })}
-      </div>
+      </StyledDiv>
     );
   }
 }
+
+export const StyledDiv = styled.div`
+margin-top:12%;
+`;
 
 export const Header = styled.h2`
   text-align: center;

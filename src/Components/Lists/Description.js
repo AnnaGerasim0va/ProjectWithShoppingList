@@ -5,9 +5,11 @@ class Description extends Component {
 
       render(){
           const{
-              product: { name, id },
+            product,
+              product: { description },
               
             }=this.props;
+console.log('product', product);
 
           return(
               <ChangeBlock>

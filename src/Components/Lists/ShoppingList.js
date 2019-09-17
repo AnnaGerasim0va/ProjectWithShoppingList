@@ -48,8 +48,13 @@ class ShoppingList extends Component {
     //принимаем новый продукт
     const { currentList } = this.state;
     //добавляем новый продукт в массив продуктов текущего списка
-    currentList.productsList.push(product);
-    this.setState({ currentList });
+    if(product.name){
+      currentList.productsList.push(product);
+      this.setState({ currentList });
+    } else{
+      alert("Введите имя продукта");  
+    }
+    
   };
 
   render() {
@@ -87,6 +92,7 @@ class ShoppingList extends Component {
 export const ListBlock = styled.div`
   padding: 10px;
   margin: 20px;
+  margin-top: 12%;
   background-color: #d4fcf1;
   display: flex;
   justify-content: space-between;

@@ -28,7 +28,7 @@ class Description extends Component {
           value={description ? description.price : ""}
           onChange={changeDescription("price")}
         />
-        <button onClick={onSaveClick(product, id)}>Сохранить изменения</button>
+        <button onClick={onSaveClick(product, id)}>✔</button>
       </ChangeBlock>
     );
   }
