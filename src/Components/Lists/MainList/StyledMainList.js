@@ -69,7 +69,7 @@ export const ListBlock = styled.div`
   display: flex;
   justify-content: space-between;
   border-radius: 7px;
-  box-shadow: 10px 10px 10px rgb(49, 100, 100);
+  box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;
 
 export const InputField = styled.input`

@@ -92,9 +92,8 @@ export const ListBlock = styled.div`
   background-color: #d4fcf1;
   /* display: flex;
   justify-content: space-between; */
-  border: 1px solid aquamarine;
   border-radius: 7px;
-  box-shadow: 10px 10px 5px rgb(49, 100, 100);
+  box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;
 
 export const StyledLink = styled(Link)`
