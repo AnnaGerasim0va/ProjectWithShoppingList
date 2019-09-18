@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NewDescription from "./NewDescription";
 import Description from "./Description";
 import styled, { css } from "styled-components";
+import Cancel from "@material-ui/icons/Cancel";
 
 class Product extends Component {
   constructor(props) {
@@ -64,7 +65,9 @@ class Product extends Component {
 
     return (
       <ListElement>
-        <ButtonDelete onClick={onDeleteClick(productIndex)}>х</ButtonDelete>
+        <ButtonDelete onClick={onDeleteClick(productIndex)}>
+          <Cancel />
+        </ButtonDelete>
         <StyledDiv>
           <Title isDone={isDone} onClick={onProductClick(productIndex)}>
             {product.name}
@@ -110,7 +113,9 @@ export const Title = styled.p`
 `;
 
 export const ListElement = styled.li`
-  width: 25%;
+  position: relative;
+  width: 15%;
+  min-width: 200px;
   background-color: #a7fcd7;
   box-shadow: 3px 3px 5px #7bedbc;
   padding: 10px;
@@ -125,16 +130,25 @@ export const StyledDiv = styled.div`
   align-items: center;
 `;
 
-export const ButtonDelete = styled.button`
+export const ButtonDelete = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  left: 85%;
-  padding: 4px 7px 5px 7px;
-  background-color: #c42323;
-  color: white;
-  margin: 0px 10px;
+  left: 86%;
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  svg {
+    color: #1e9e6d;
+  }
   :hover {
     cursor: pointer;
-    background-color: #a81919;
+    svg {
+      transition: all 0.6s;
+      font-size: 40px;
+      font-weight: bold;
+    }
   }
 `;
 

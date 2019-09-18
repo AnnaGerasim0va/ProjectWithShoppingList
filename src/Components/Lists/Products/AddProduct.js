@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewDescription from "./NewDescription";
 import styled from "styled-components";
+import Add from "@material-ui/icons/Add";
 
 class AddProduct extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class AddProduct extends Component {
     const { onSaveClick, idForAdd } = this.props;
     return (
       <>
-        <ButtonAdd onClick={this.handleExpanedForAdd}>➕</ButtonAdd>
+        <ButtonAdd onClick={this.handleExpanedForAdd}><Add /></ButtonAdd>
         {isExpandedForAdd && (
           <AddedBlock>
             <span>Создание нового продукта</span>
@@ -63,21 +64,27 @@ class AddProduct extends Component {
   }
 }
 
-export const ButtonAdd = styled.div`
-  display: inline-block;
-  padding: 8px 10px 9px 10px;
-  margin: 15px 10px;
-  box-shadow: 2px 2px 2px #7bedbc;
-  font-size: 20px;
-  background-color: #a7fcd7;
+export const ButtonAdd = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
   :hover {
+    transition: all 0.7s;
+    background-color: #d1d1d1;
+    opacity: 0.8;
     cursor: pointer;
-    background-color: #d4ffdf;
-    box-shadow: 2px 2px 2px #aff0d4;
+  }
+  svg {
+    font-size: 50px;
+    color: #707070;
   }
 `;
 
-export const AddedBlock = styled.div`
+export const AddedBlock = styled.li`
   /* display: flex;
   justify-content: center;
   align-items: center; */

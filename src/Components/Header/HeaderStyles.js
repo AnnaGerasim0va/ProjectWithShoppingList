@@ -10,11 +10,12 @@ export const Block = styled.div`
 
 export const Header = styled.ul`
   position: fixed;
-  top:0;
-  height: 10%;
+  top: 0;
+  height: 100px;
   opacity: 0.9;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #44d4ab;
   width: 100%;
   list-style: none;
@@ -22,9 +23,20 @@ export const Header = styled.ul`
 `;
 export const HeaderButton = styled.li`
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100%;
   :hover {
     background-color: #67ebc5;
   }
+  /* ${p =>
+    p.isActive &&
+    css`
+       {
+        background-color: #67ebc5;
+      }
+    `} */
 `;
 
 export const StyledLink = styled(Link)`

@@ -48,13 +48,12 @@ class ShoppingList extends Component {
     //принимаем новый продукт
     const { currentList } = this.state;
     //добавляем новый продукт в массив продуктов текущего списка
-    if(product.name){
+    if (product.name) {
       currentList.productsList.push(product);
       this.setState({ currentList });
-    } else{
-      alert("Введите имя продукта");  
+    } else {
+      alert("Введите имя продукта");
     }
-    
   };
 
   render() {
@@ -64,10 +63,8 @@ class ShoppingList extends Component {
 
     return (
       <>
-        <div>
-          <Link to="/mainList/">Назад</Link>
-        </div>
         <ListBlock>
+          <StyledLink to="/mainList/">Назад</StyledLink>
           <Element_ul>
             {productsList.map((product, index) => (
               <Product
@@ -80,8 +77,7 @@ class ShoppingList extends Component {
                 product={product}
               />
             ))}
-            <AddProduct onSaveClick={this.addProduct} 
-            idForAdd={idForAdd}/>
+            <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
           </Element_ul>
         </ListBlock>
       </>
@@ -94,16 +90,26 @@ export const ListBlock = styled.div`
   margin: 20px;
   margin-top: 12%;
   background-color: #d4fcf1;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   border: 1px solid aquamarine;
   border-radius: 7px;
   box-shadow: 10px 10px 5px rgb(49, 100, 100);
 `;
 
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  :hover {
+    color: #2b7054;
+  }
+`;
+
 export const Element_ul = styled.ul`
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
+  align-items:center;
   list-style: none;
 `;
 

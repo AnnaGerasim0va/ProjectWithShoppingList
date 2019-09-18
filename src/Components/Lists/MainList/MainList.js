@@ -1,12 +1,22 @@
 import React, { Component } from "react";
-import {Link } from "react-router-dom";
 import CreateNewList from "./CreateNewList";
-import styled from "styled-components";
+import ListSearch from "./ListSearch";
+import Add from "@material-ui/icons/Add";
+import Cancel from "@material-ui/icons/Cancel";
+import {
+  StyledDiv,
+  Header,
+  ButtonDeleteDone,
+  AddButton,
+  ListBlock, 
+  StyledLink
+} from "./StyledMainList";
 
 class MainList extends Component {
   state = {
     listsArray: JSON.parse(localStorage.getItem("listsArray")),
-    newListName: ""
+    newListName: "",
+    isExpanded: false
   };
 
   deleteElement = id => () => {
@@ -22,6 +32,11 @@ class MainList extends Component {
         })
       });
     }
+  };
+
+  handleExpanded = () => {
+    const { isExpanded } = this.state;
+    this.setState({ isExpanded: !isExpanded });
   };
 
   handleChange = event => {
@@ -43,51 +58,42 @@ class MainList extends Component {
       console.log(listsArray);
       this.setState({ listsArray, newListName: "" });
     }
-    
   };
 
   render() {
-    const { listsArray, newListName } = this.state;
+    const { listsArray, newListName, isExpanded } = this.state;
 
     return (
       <StyledDiv>
-        <div className="header">
-          <Header>Списки покупок</Header>
-        </div>
-        <CreateNewList newListName={newListName} handleListCreate={this.handleListCreate} handleChange={this.handleChange}  />
+        <Header>Списки покупок</Header>
+        <ListSearch />
         {listsArray.map((list, index) => {
           const { id, name } = list;
           return (
             <ListBlock>
-              <Link key={index} to={`/mainList/${id}`}>
+              <StyledLink key={index} to={`/mainList/${id}`}>
                 {name}
-              </Link>
-              <button onClick={this.deleteElement(id)}>Удалить</button>
+              </StyledLink>
+              <ButtonDeleteDone onClick={this.deleteElement(id)}><Cancel /></ButtonDeleteDone>
             </ListBlock>
           );
         })}
+        <AddButton onClick={this.handleExpanded}>
+          <Add />
+        </AddButton>
+        {isExpanded && (
+          <ListBlock>
+            <CreateNewList
+              newListName={newListName}
+              handleListCreate={this.handleListCreate}
+              handleChange={this.handleChange}
+            />
+          </ListBlock>
+        )}
       </StyledDiv>
     );
   }
 }
 
-export const StyledDiv = styled.div`
-margin-top:12%;
-`;
-
-export const Header = styled.h2`
-  text-align: center;
-`;
-
-export const ListBlock = styled.div`
-  padding: 10px;
-  margin: 20px;
-  background-color: #d4fcf1;
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid aquamarine;
-  border-radius: 7px;
-  box-shadow: 10px 10px 5px rgb(49, 100, 100);
-`;
 
 export default MainList;
