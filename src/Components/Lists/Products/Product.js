@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import NewDescription from "./NewDescription";
-import Description from "./Description";
+import { Description } from "./Description";
 import styled, { css } from "styled-components";
 import Cancel from "@material-ui/icons/Cancel";
 
@@ -45,47 +44,35 @@ class Product extends Component {
     });
   };
 
-  handleExpand = () => event => {
-    event.stopPropagation();
-    const { isExpanded } = this.state;
-    this.setState({ isExpanded: !isExpanded });
-  };
-
   render() {
     const {
       isDone,
       onProductClick,
       onDeleteClick,
       onSaveClick,
-      productIndex
+      productIndex,
+      clickBoughtProduct,
     } = this.props;
     const { product, newProduct, isExpanded, newName } = this.state;
     console.log("newProduct", newProduct);
     console.log("product", product);
 
     return (
-      <ListElement>
+      <ListElement onClick={clickBoughtProduct(productIndex)}>
         <ButtonDelete onClick={onDeleteClick(productIndex)}>
           <Cancel />
         </ButtonDelete>
         <StyledDiv>
-          <Title isDone={isDone} onClick={onProductClick(productIndex)}>
-            {product.name}
-          </Title>
-          <ButtonChange onClick={this.handleExpand()}>🖍</ButtonChange>
+          <Title isDone={isDone} onClick={onProductClick(productIndex)}></Title>
         </StyledDiv>
-
-        {isExpanded ? (
-          <NewDescription
-            product={newProduct}
-            changeDescription={this.changeDescription}
-            changeName={this.changeName}
-            onSaveClick={onSaveClick}
-            id={productIndex}
-          />
-        ) : (
-          <Description product={product} id={productIndex} />
-        )}
+        <Description
+          product={newProduct}
+          changeDescription={this.changeDescription}
+          changeName={this.changeName}
+          onSaveClick={onSaveClick}
+          id={productIndex}
+          isNameError={isNameError}
+        />
       </ListElement>
     );
   }
@@ -120,6 +107,10 @@ export const ListElement = styled.li`
   box-shadow: 3px 3px 5px #7bedbc;
   padding: 10px;
   margin: 10px;
+  :hover {
+    background-color: #93edc6;
+    cursor: pointer;
+  }
 `;
 
 export const StyledDiv = styled.div`

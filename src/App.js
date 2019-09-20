@@ -5,7 +5,7 @@ import Home from "./Components/Header/Home";
 import MainList from "./Components/Lists/MainList/MainList";
 import ShoppingList from "./Components/Lists/Products/ShoppingList";
 import About from "./Components/Header/About";
-import Menu from "./Components/Header/Menu";
+import Header from "./Components/Header/Header";
 import createBrowserHistory from "history/createBrowserHistory";
 import {LIST_FOR_B_DAY,LIST_FOR_WEEK, LIST_FOR_CHILDREN} from "./Components/Constants"
 
@@ -25,7 +25,7 @@ class App extends Component {
   render() {
     return (
       <Router history={HISTORY}>
-        <Menu />
+        <Header />
         <Route exact path="/" component={Home} />
         <Route exact path="/mainList" component={MainList} />
         <Route path="/about" component={About} />

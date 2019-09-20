@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AddProduct from "./AddProduct";
 import Product from "./Product";
 import styled from "styled-components";
+import Back from "@material-ui/icons/ArrowBack";
 
 class ShoppingList extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class ShoppingList extends Component {
     const currentList = listsArray.find(list => list.id === Number(id));
     this.state = {
       listsArray,
-      currentList
+      currentList,
+      boughtProduct: []
     };
   }
 
@@ -35,6 +37,16 @@ class ShoppingList extends Component {
     this.setState({ currentList });
   };
 
+  clickBoughtProduct = () => {
+    // const { boughtProduct, currentList } = this.state;
+    // const currentProduct = currentList.productsList.find(
+    //   (item, index) => index === productIndex
+    // );
+    // currentList.productsList.splice(index, 1);
+    // boughtProduct.push(currentProduct);
+    // this.setState({ currentList, boughtProduct });
+  };
+
   onSaveClick = (product, id) => () => {
     //product - новый продукт с измененным description и name
     // event.stopPropagation();
@@ -46,41 +58,43 @@ class ShoppingList extends Component {
 
   addProduct = product => () => {
     //принимаем новый продукт
-    const { currentList } = this.state;
+    const { currentList, isNameError } = this.state;
     //добавляем новый продукт в массив продуктов текущего списка
     if (product.name) {
       currentList.productsList.push(product);
-      this.setState({ currentList });
-    } else {
-      alert("Введите имя продукта");
+      this.setState({ currentList});
     }
   };
 
   render() {
-    const { currentList } = this.state;
+    const { currentList, boughtProduct } = this.state;
     const { productsList } = currentList;
     const idForAdd = productsList.lenght;
 
     return (
-      <>
-        <ListBlock>
-          <StyledLink to="/mainList/">Назад</StyledLink>
-          <Element_ul>
-            {productsList.map((product, index) => (
-              <Product
-                key={index + product.name}
-                productIndex={index}
-                isDone={product.isDone}
-                onProductClick={this.markElement}
-                onDeleteClick={this.deleteElement}
-                onSaveClick={this.onSaveClick}
-                product={product}
-              />
-            ))}
-            <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
-          </Element_ul>
-        </ListBlock>
-      </>
+      <ListBlock>
+        <StyledLink to="/mainList/">
+          <Back />
+        </StyledLink>
+        <ListToBuy>
+          {productsList.map((product, index) => (
+            <Product
+              key={index + product.name}
+              productIndex={index}
+              isDone={product.isDone}
+              onProductClick={this.markElement}
+              onDeleteClick={this.deleteElement}
+              onSaveClick={this.onSaveClick}
+              product={product}
+              clickBoughtProduct={this.clickBoughtProduct}
+            />
+          ))}
+          <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
+        </ListToBuy>
+        <ListBought>
+          {/* <Product /> */}
+        </ListBought>
+      </ListBlock>
     );
   }
 }
@@ -92,6 +106,9 @@ export const ListBlock = styled.div`
   background-color: #d4fcf1;
   /* display: flex;
   justify-content: space-between; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   border-radius: 7px;
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;
@@ -104,12 +121,29 @@ export const StyledLink = styled(Link)`
   }
 `;
 
-export const Element_ul = styled.ul`
+export const ListToBuy = styled.ul`
+  position: relative;
   width: 90%;
   display: flex;
   flex-wrap: wrap;
-  align-items:center;
+  align-items: center;
   list-style: none;
+  border-radius: 7px;
+  box-shadow: 2px 2px 5px #347363;
+  background-color: #7ee6bb;
+  margin: 10px;
+`;
+
+export const ListBought = styled.ul`
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  border-radius: 7px;
+  box-shadow: 2px 2px 5px #347363;
+  background-color: #7ee6bb;
+  margin: 10px;
 `;
 
 export default ShoppingList;

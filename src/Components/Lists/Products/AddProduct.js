@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NewDescription from "./NewDescription";
+import { Description } from "./Description";
 import styled from "styled-components";
 import Add from "@material-ui/icons/Add";
 
@@ -45,11 +45,16 @@ class AddProduct extends Component {
     const { onSaveClick, idForAdd } = this.props;
     return (
       <>
-        <ButtonAdd onClick={this.handleExpanedForAdd}><Add /></ButtonAdd>
+        <ButtonAdd
+          isExpandedForAdd={isExpandedForAdd}
+          onClick={this.handleExpanedForAdd}
+        >
+          <Add />
+        </ButtonAdd>
         {isExpandedForAdd && (
           <AddedBlock>
             <span>Создание нового продукта</span>
-            <NewDescription
+            <Description
               onSaveClick={onSaveClick}
               changeDescription={this.AddDescription}
               changeName={this.AddName}
@@ -64,16 +69,21 @@ class AddProduct extends Component {
   }
 }
 
-export const ButtonAdd = styled.li`
+export const ButtonAdd = styled.div`
+  position: absolute;
+  bottom: 30px;
+  right: 55px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin:30px;
+  margin: 30px;
   width: 50px;
   height: 50px;
+  transition: all 0.3s;
   border-radius: 25px;
+  transform: ${({ isExpandedForAdd }) =>
+    isExpandedForAdd ? "rotate(45deg)" : "none"};
   :hover {
-    transition: all 0.7s;
     background-color: #d1d1d1;
     opacity: 0.8;
     cursor: pointer;
