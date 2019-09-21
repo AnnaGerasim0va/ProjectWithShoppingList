@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Description } from "./Description";
+import Description from "./Description";
 import styled, { css } from "styled-components";
 import Cancel from "@material-ui/icons/Cancel";
 
@@ -33,7 +33,7 @@ class Product extends Component {
     });
   };
 
-  changeName = () => event => {
+  changeName = event => {
     event.stopPropagation();
     const { newProduct } = this.state;
     this.setState({
@@ -51,7 +51,7 @@ class Product extends Component {
       onDeleteClick,
       onSaveClick,
       productIndex,
-      clickBoughtProduct,
+      clickBoughtProduct
     } = this.props;
     const { product, newProduct, isExpanded, newName } = this.state;
     console.log("newProduct", newProduct);
@@ -63,7 +63,7 @@ class Product extends Component {
           <Cancel />
         </ButtonDelete>
         <StyledDiv>
-          <Title isDone={isDone} onClick={onProductClick(productIndex)}></Title>
+          <Title isDone={isDone} onClick={onProductClick(productIndex)} />
         </StyledDiv>
         <Description
           product={newProduct}
@@ -71,7 +71,6 @@ class Product extends Component {
           changeName={this.changeName}
           onSaveClick={onSaveClick}
           id={productIndex}
-          isNameError={isNameError}
         />
       </ListElement>
     );
@@ -91,9 +90,7 @@ export const Title = styled.p`
           color: green;
         }
       }
-    `}
-
-  :hover {
+    `} :hover {
     color: green;
     cursor: pointer;
   }

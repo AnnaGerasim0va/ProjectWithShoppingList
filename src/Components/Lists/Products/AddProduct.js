@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Description } from "./Description";
+import Description from "./Description";
 import styled from "styled-components";
 import Add from "@material-ui/icons/Add";
 
@@ -12,7 +12,7 @@ class AddProduct extends Component {
     };
   }
 
-  AddDescription = type => event => {
+  addDescription = type => event => {
     const { newProduct } = this.state;
     const newDescription = {
       [type]: event.target.value
@@ -25,7 +25,7 @@ class AddProduct extends Component {
     });
   };
 
-  AddName = () => event => {
+  addName = event => {
     const { newProduct } = this.state;
     this.setState({
       newProduct: {
@@ -38,6 +38,16 @@ class AddProduct extends Component {
   handleExpanedForAdd = () => {
     const { isExpandedForAdd } = this.state;
     this.setState({ isExpandedForAdd: !isExpandedForAdd });
+  };
+
+  handleSaveClick = product => () => {
+    this.props.onSaveClick(product);
+    this.setState({
+      newProduct: {
+        name: "",
+        description: ""
+      }
+    });
   };
 
   render() {
@@ -55,12 +65,12 @@ class AddProduct extends Component {
           <AddedBlock>
             <span>Создание нового продукта</span>
             <Description
-              onSaveClick={onSaveClick}
-              changeDescription={this.AddDescription}
-              changeName={this.AddName}
+              creation
+              onSaveClick={this.handleSaveClick}
+              changeDescription={this.addDescription}
+              changeName={this.addName}
               product={newProduct}
               id={idForAdd}
-              onSaveClick={onSaveClick}
             />
           </AddedBlock>
         )}

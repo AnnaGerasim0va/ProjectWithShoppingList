@@ -7,19 +7,24 @@ class Description extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isNameError: false
+      localName: "",
+      nameTouched: false
     };
   }
 
-  handleNameError = name => {
-    const { isNameError } = this.state;
-    if (!name) {
-      this.setState({ isNameError: false });
+  handleNameChange = event => {
+    this.props.changeName(event);
+
+    if (!this.state.nameTouched) {
+      this.setState({
+        nameTouched: true
+      });
     }
   };
 
   render() {
     const {
+      creation,
       onSaveClick,
       product,
       product: { name, isDone, description },
@@ -28,16 +33,18 @@ class Description extends Component {
       changeName
     } = this.props;
 
-    const { isNameError } = this.state;
+    const { localName, nameTouched } = this.state;
+
+    //const name = creation ? localName : productName;
 
     return (
       <ChangeBlock>
         <TextField
-          error={isNameError}
+          error={nameTouched && !name}
           label="Название"
           value={name}
-          onChange={changeName()}
-          helperText={isNameError && "Пожалуйста, введите название"}
+          onChange={this.handleNameChange}
+          helperText={nameTouched && !name && "Пожалуйста, введите название"}
         />
         <TextField
           label="Количество"
@@ -51,6 +58,8 @@ class Description extends Component {
     );
   }
 }
+
+export default Description;
 
 const CheckErrorBlock = styled.div`
   height: 20px;

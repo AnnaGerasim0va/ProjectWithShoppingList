@@ -18,21 +18,26 @@ const ROUTES = {
 };
 
 class Menu extends Component {
-
   isActive = ({ url }) => {
-    console.log("url", url);
+    //console.log("url", url);
 
     const { pathname } = this.props.location;
-    // if (pathname === ROUTES.main.url) {
-      if (pathname != "/mainList" && pathname != "/about"){
+    // pathname = pathname.replace("/", "");
+    /*if (pathname === ROUTES.main.url) {
+      //if (pathname != "/mainList" && pathname != "/about"){
       return true;
-    } else  {
-      return pathname.includes(url);
-    }
+    } else {
+      console.log("pathname", pathname);
+      console.log("url", url);
+      return url === ROUTES.main.url ? false : pathname.includes(url);
+    }*/
+    const currentPage = pathname.split("/")[1];
+    return `/${currentPage}` === url;
   };
 
   render() {
     const { main, lists, about } = ROUTES;
+    console.log("render");
     console.log("this.props", this.props);
     return (
       <Header>

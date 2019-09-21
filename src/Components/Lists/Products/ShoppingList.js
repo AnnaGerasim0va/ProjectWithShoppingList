@@ -56,13 +56,15 @@ class ShoppingList extends Component {
     this.setState({ currentList });
   };
 
-  addProduct = product => () => {
+  addProduct = product => {
+    console.log("addProduct");
+
     //принимаем новый продукт
     const { currentList, isNameError } = this.state;
     //добавляем новый продукт в массив продуктов текущего списка
     if (product.name) {
       currentList.productsList.push(product);
-      this.setState({ currentList});
+      this.setState({ currentList });
     }
   };
 
@@ -91,9 +93,7 @@ class ShoppingList extends Component {
           ))}
           <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
         </ListToBuy>
-        <ListBought>
-          {/* <Product /> */}
-        </ListBought>
+        <ListBought>{/* <Product /> */}</ListBought>
       </ListBlock>
     );
   }
