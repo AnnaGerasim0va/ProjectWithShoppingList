@@ -64,7 +64,8 @@ class MainList extends Component {
     const { listsArray, newListName, isExpanded } = this.state;
 
     return (
-      <StyledDiv>
+      <ArrayContext.Consumer>
+        {listsArray => (<StyledDiv>
         <Header>Списки покупок</Header>
         <ListSearch />
         {listsArray.map((list, index) => {
@@ -90,7 +91,8 @@ class MainList extends Component {
             />
           </ListBlock>
         )}
-      </StyledDiv>
+      </StyledDiv>)}
+      </ArrayContext.Consumer>    
     );
   }
 }
