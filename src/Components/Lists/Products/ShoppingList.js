@@ -8,7 +8,7 @@ import Back from "@material-ui/icons/ArrowBack";
 
 class ShoppingList extends Component {
   constructor(props) {
-    super(props, context);
+    super(props);
     const { id } = this.props.match.params;
     const listsArray = JSON.parse(localStorage.getItem("listsArray"));
     // Возвращает данные выбранного списка
@@ -19,7 +19,7 @@ class ShoppingList extends Component {
       boughtProduct: []
     };
   }
-ы
+
   deleteElement = index => event => {
     //избегаем всплытия markElement
     event.stopPropagation();
