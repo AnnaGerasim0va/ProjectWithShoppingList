@@ -67,7 +67,7 @@ export const ListBlock = styled.div`
   margin: 20px;
   background-color: #d4fcf1;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   border-radius: 7px;
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;

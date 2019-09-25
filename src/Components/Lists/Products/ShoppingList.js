@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AddProduct from "./AddProduct";
 import Product from "./Product";
+import { ArrayContext } from "../../../ShoppingListContext";
 import styled from "styled-components";
 import Back from "@material-ui/icons/ArrowBack";
 
 class ShoppingList extends Component {
   constructor(props) {
-    super(props);
+    super(props, context);
     const { id } = this.props.match.params;
     const listsArray = JSON.parse(localStorage.getItem("listsArray"));
     // Возвращает данные выбранного списка
@@ -18,7 +19,7 @@ class ShoppingList extends Component {
       boughtProduct: []
     };
   }
-
+ы
   deleteElement = index => event => {
     //избегаем всплытия markElement
     event.stopPropagation();
@@ -74,27 +75,32 @@ class ShoppingList extends Component {
     const idForAdd = productsList.lenght;
 
     return (
-      <ListBlock>
-        <StyledLink to="/mainList/">
-          <Back />
-        </StyledLink>
-        <ListToBuy>
-          {productsList.map((product, index) => (
-            <Product
-              key={index + product.name}
-              productIndex={index}
-              isDone={product.isDone}
-              onProductClick={this.markElement}
-              onDeleteClick={this.deleteElement}
-              onSaveClick={this.onSaveClick}
-              product={product}
-              clickBoughtProduct={this.clickBoughtProduct}
-            />
-          ))}
-          <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
-        </ListToBuy>
-        <ListBought>{/* <Product /> */}</ListBought>
-      </ListBlock>
+      <ArrayContext.Consumer>
+        {listsArray => 
+        (
+          <ListBlock>
+            <StyledLink to="/mainList/">
+              <Back />
+            </StyledLink>
+            <ListToBuy>
+              {productsList.map((product, index) => (
+                <Product
+                  key={index + product.name}
+                  productIndex={index}
+                  isDone={product.isDone}
+                  onProductClick={this.markElement}
+                  onDeleteClick={this.deleteElement}
+                  onSaveClick={this.onSaveClick}
+                  product={product}
+                  clickBoughtProduct={this.clickBoughtProduct}
+                />
+              ))}
+              <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
+            </ListToBuy>
+            <ListBought>{/* <Product /> */}</ListBought>
+          </ListBlock>
+        )}
+      </ArrayContext.Consumer>
     );
   }
 }
