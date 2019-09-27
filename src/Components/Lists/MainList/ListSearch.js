@@ -2,16 +2,34 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Search from "@material-ui/icons/Search";
 import SvgIcon from "@material-ui/core/SvgIcon";
+import { ArrayContext } from "../../../ShoppingListContext";
 
 class ListSearch extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      inputText:""
+    }
+  }
+
+
   render() {
+    const {inputText, handleSearch} = this;
     return (
-      <InputForm>
-        <InputSearch placeholder="Поиск" />
-        <SearchButton>
-          <Search />
-        </SearchButton>
-      </InputForm>
+      <ArrayContext.Consumer>
+        {({ listsArray }) => (
+          <InputForm>
+            <InputSearch
+              placeholder="Поиск"
+              value = {inputText}
+              onChange={handleSearch(listsArray, inputText)}
+            />
+            <SearchButton>
+              <Search />
+            </SearchButton>
+          </InputForm>
+        )}
+      </ArrayContext.Consumer>
     );
   }
 }

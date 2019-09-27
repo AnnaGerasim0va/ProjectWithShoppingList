@@ -7,7 +7,7 @@ export const StyledDiv = styled.div`
 
 export const StyledLink = styled(Link)`
   /* display: inline-block; */
-  padding: 3px 900px 3px 15px;
+  padding: 3px 700px 3px 15px;
   text-decoration: none;
   color: black;
 `;
@@ -21,7 +21,7 @@ export const ButtonDeleteDone = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  right: 4%;
+  right: 10px;
   font-size: 30px;
   width: 30px;
   height: 30px;
@@ -67,7 +67,7 @@ export const ListBlock = styled.div`
   margin: 20px;
   background-color: #d4fcf1;
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   border-radius: 7px;
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;

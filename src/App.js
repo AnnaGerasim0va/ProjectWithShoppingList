@@ -25,21 +25,37 @@ class App extends Component {
       }
     );
     this.state = {
-      listsArray
+      listsArray,
+      currentList: {}
     };
   }
 
+  deleteElement = id => () => {
+    const { listsArray } = this.state;
+    let isDeletion = window.confirm("Вы действительно хотите удалить список?");
+    if (isDeletion) {
+      this.setState({
+        listsArray: listsArray.filter(item => {
+          return item.id !== id;
+        })
+      });
+    }
+  };
 
-  handleListCreate = newListName => {
+  handleListCreate = newListName => () => {
     const { listsArray } = this.state;
     if (newListName) {
-      this.setState({ 
-        listsArray: [...listsArray, {
-          name: newListName, 
-          date: {},
-          productsList: [],
-          id: listsArray.length}]
-        })
+      this.setState({
+        listsArray: [
+          ...listsArray,
+          {
+            name: newListName,
+            date: {},
+            productsList: [],
+            id: listsArray.length
+          }
+        ]
+      });
     }
   };
 
@@ -55,9 +71,16 @@ class App extends Component {
   }
 
   render() {
-    const { listsArray } = this.state;
+    const { listsArray, currentList } = this.state;
     return (
-      <ArrayContext.Provider value={{listsArray, handleListCreate: this.handleListCreate}}>
+      <ArrayContext.Provider
+        value={{
+          listsArray,
+          currentList,
+          handleListCreate: this.handleListCreate,
+          deleteElement: this.deleteElement
+        }}
+      >
         <Router history={HISTORY}>
           <Header />
           <Route exact path="/" component={Home} />

@@ -7,14 +7,13 @@ import styled from "styled-components";
 import Back from "@material-ui/icons/ArrowBack";
 
 class ShoppingList extends Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
     const { id } = this.props.match.params;
-    const listsArray = JSON.parse(localStorage.getItem("listsArray"));
     // Возвращает данные выбранного списка
+    const { listsArray } = context;
     const currentList = listsArray.find(list => list.id === Number(id));
     this.state = {
-      listsArray,
       currentList,
       boughtProduct: []
     };
@@ -69,15 +68,20 @@ class ShoppingList extends Component {
     }
   };
 
+  // componentWillMount(){
+  //   findCurrentList
+  // }
+
   render() {
-    const { currentList, boughtProduct } = this.state;
-    const { productsList } = currentList;
-    const idForAdd = productsList.lenght;
+    const {
+      currentList: { productsList },
+      boughtProduct
+    } = this.state;
+    // const idForAdd = productsList.lenght;
 
     return (
       <ArrayContext.Consumer>
-        {listsArray => 
-        (
+        {() => (
           <ListBlock>
             <StyledLink to="/mainList/">
               <Back />
@@ -95,7 +99,7 @@ class ShoppingList extends Component {
                   clickBoughtProduct={this.clickBoughtProduct}
                 />
               ))}
-              <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
+              {/* <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} /> */}
             </ListToBuy>
             <ListBought>{/* <Product /> */}</ListBought>
           </ListBlock>
@@ -104,6 +108,8 @@ class ShoppingList extends Component {
     );
   }
 }
+
+ShoppingList.contextType = ArrayContext;
 
 export const ListBlock = styled.div`
   padding: 10px;

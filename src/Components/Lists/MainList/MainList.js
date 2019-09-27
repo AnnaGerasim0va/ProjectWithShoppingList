@@ -17,22 +17,26 @@ class MainList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      filterArray: {},
       newListName: "",
-      isExpanded: false
+      isExpanded: false,
+      isSort: false
     };
   }
 
-  deleteElement = (id) => () => {
-    const {listsArray} = this.state;
-    let isDeletion = window.confirm("Вы действительно хотите удалить список?");
-    if (isDeletion) {
-      this.setState({
-        listsArray: listsArray.filter(item => {
-          return item.id !== id;
-        })
-      });
-    }
+  handleSearch = (listsArray, inputText) => event => {
+    const{name} = listsArray;
+    const {inputText, filterArray} = this.state;
+    this.setState({inputText:event.target.value});
+    console.log('value', event.target.value, "listsArray", listsArray);
+    filterArray = listsArray.filter(name => name.include(event.target.value));
+    this.setState(filterArray);
   };
+
+  handleSortClick = () => {
+    const { isSort } = this.state;
+    this.setState({ isSort: true });
+  }
 
   handleExpanded = () => {
     const { isExpanded } = this.state;
@@ -42,6 +46,11 @@ class MainList extends Component {
   handleChange = event => {
     console.log("event", event.target.value);
     this.setState({ newListName: event.target.value });
+  };
+
+  findCurrentList = (listsArray, id) => { 
+    const currentList = listsArray.find(list => list.id === Number(id));
+    this.setState({ currentList });
   };
 
   // handleListCreate = () => {
@@ -61,23 +70,28 @@ class MainList extends Component {
   // };
 
   render() {
-    const { newListName, isExpanded } = this.state;
+    const { newListName, isExpanded, isSort } = this.state;
 
     return (
       <ArrayContext.Consumer>
-        {({listsArray}) => (
+        {({listsArray, deleteElement, currentList}) => (
           <StyledDiv>
             <Header>Списки покупок</Header>
-            <ListSearch />
+            <button onClick = {this.sortClick}>Сортировать</button>
+            <ListSearch handleSearch={this.handleSearch}/>
+            {isSort && listsArray.sort((a,b) => (a>b)? 1 : -1) }
             {
-              listsArray.map((list, index) => {
+              
+              listsArray.map((list, index) => {              
               const { id, name } = list;
               return (
+                
                 <ListBlock>
                   <StyledLink key={index} to={`/mainList/${id}`}>
                     {name}
                   </StyledLink>
-                  <ButtonDeleteDone onClick={this.deleteElement(id)}>
+                  {this.findCurrentList(listsArray, id)}
+                  <ButtonDeleteDone onClick={deleteElement(id)}>
                     <Cancel />
                   </ButtonDeleteDone>
                 </ListBlock>
