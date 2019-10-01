@@ -4,6 +4,7 @@ import ListSearch from "./ListSearch";
 import Add from "@material-ui/icons/Add";
 import Cancel from "@material-ui/icons/Cancel";
 import { ArrayContext } from "../../../ShoppingListContext";
+import {PopupMenu} from "../../PopupMenu"
 import {
   StyledDiv,
   Header,
@@ -20,17 +21,18 @@ class MainList extends Component {
       filterArray: {},
       newListName: "",
       isExpanded: false,
+      inputText: "",
       isSort: false
     };
   }
 
-  handleSearch = (listsArray, inputText) => event => {
-    const{name} = listsArray;
-    const {inputText, filterArray} = this.state;
-    this.setState({inputText:event.target.value});
-    console.log('value', event.target.value, "listsArray", listsArray);
-    filterArray = listsArray.filter(name => name.include(event.target.value));
-    this.setState(filterArray);
+  handleSearch = () => event => {
+    // const{name} = listsArray;
+    const {inputText} = this.state;
+    const value = event.target.value;
+    this.setState({
+      inputText: value ? value[0].toUpperCase() + value.slice(1) : ""
+    });
   };
 
   handleSortClick = () => {
@@ -48,10 +50,22 @@ class MainList extends Component {
     this.setState({ newListName: event.target.value });
   };
 
-  findCurrentList = (listsArray, id) => { 
-    const currentList = listsArray.find(list => list.id === Number(id));
-    this.setState({ currentList });
+  getFilteredLists = listsArray => {
+    const { inputText } = this.state;
+
+    return inputText
+      ? listsArray.filter(list => {
+          const { name } = list;
+
+          return name.toLowerCase().includes(inputText.toLowerCase());
+        })
+      : listsArray;
   };
+
+  // findCurrentList = (listsArray, id) => { 
+  //   const currentList = listsArray.find(list => list.id === Number(id));
+  //   this.setState({ currentList });
+  // };
 
   // handleListCreate = () => {
   //   const { listsArray, newListName } = this.state;
@@ -70,19 +84,24 @@ class MainList extends Component {
   // };
 
   render() {
-    const { newListName, isExpanded, isSort } = this.state;
+    const { newListName, isExpanded, inputText } = this.state;
 
     return (
       <ArrayContext.Consumer>
         {({listsArray, deleteElement, currentList}) => (
           <StyledDiv>
             <Header>Списки покупок</Header>
-            <button onClick = {this.sortClick}>Сортировать</button>
-            <ListSearch handleSearch={this.handleSearch}/>
-            {isSort && listsArray.sort((a,b) => (a>b)? 1 : -1) }
-            {
-              
-              listsArray.map((list, index) => {              
+            <PopupMenu />
+            {/* <button onClick = {this.sortClick}>Сортировать</button> */}
+            <ListSearch inputText={inputText} handleSearch={this.handleSearch}/>
+            {/* {isSort && listsArray.sort((a,b) => (a>b)? 1 : -1) } */}
+            {/* {listsArray.filter(list => 
+              {
+                const {inputText} = this.state;
+                return(
+                list.name.includes(inputText))})} */}
+            {           
+              this.getFilteredLists(listsArray).map((list, index) => {              
               const { id, name } = list;
               return (
                 
@@ -90,7 +109,6 @@ class MainList extends Component {
                   <StyledLink key={index} to={`/mainList/${id}`}>
                     {name}
                   </StyledLink>
-                  {this.findCurrentList(listsArray, id)}
                   <ButtonDeleteDone onClick={deleteElement(id)}>
                     <Cancel />
                   </ButtonDeleteDone>

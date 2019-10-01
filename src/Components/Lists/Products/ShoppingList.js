@@ -77,7 +77,7 @@ class ShoppingList extends Component {
       currentList: { productsList },
       boughtProduct
     } = this.state;
-    // const idForAdd = productsList.lenght;
+    const idForAdd = productsList.lenght;
 
     return (
       <ArrayContext.Consumer>
@@ -99,7 +99,7 @@ class ShoppingList extends Component {
                   clickBoughtProduct={this.clickBoughtProduct}
                 />
               ))}
-              {/* <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} /> */}
+              <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
             </ListToBuy>
             <ListBought>{/* <Product /> */}</ListBought>
           </ListBlock>

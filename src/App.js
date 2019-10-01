@@ -13,6 +13,8 @@ import {
   LIST_FOR_WEEK,
   LIST_FOR_CHILDREN
 } from "./Components/Constants";
+import { reverse } from "dns";
+import { log } from "util";
 
 const HISTORY = createBrowserHistory();
 
@@ -26,7 +28,13 @@ class App extends Component {
     );
     this.state = {
       listsArray,
-      currentList: {}
+      currentList: {},
+      sortArray: [],
+      isOneClick: false,
+      sortOption: {
+        type: null,
+        reverse: false
+      }
     };
   }
 
@@ -40,6 +48,33 @@ class App extends Component {
         })
       });
     }
+  };
+
+  sortArrayFunction = (listsArray, sortOption) => () => {
+    let { type, reverse } = sortOption;
+    let {sortArray, isOneClick} = this.state;
+    if (type == "По имени") {
+      this.setState({isOneClick: !isOneClick});
+      listsArray.sort((a, b) => (a > b ? 1 : -1));
+      if(!isOneClick){
+        reverse = true;
+      }
+
+      if (reverse) {
+      listsArray.reverse();
+      }
+    }
+    if(type == "По количеству продуктов") {
+      this.setState({isOneClick: !isOneClick});
+      listsArray.sort((a,b)=> a.productsList.length > b.productsList.length ? 1 : -1);
+      if(!isOneClick){
+        reverse = true;
+      }
+      if (reverse) {
+        listsArray.reverse();
+      }
+    }
+    this.setState(listsArray);
   };
 
   handleListCreate = newListName => () => {
@@ -71,14 +106,16 @@ class App extends Component {
   }
 
   render() {
-    const { listsArray, currentList } = this.state;
+    const { listsArray, currentList, sortOption } = this.state;
     return (
       <ArrayContext.Provider
         value={{
           listsArray,
           currentList,
+          sortOption,
           handleListCreate: this.handleListCreate,
-          deleteElement: this.deleteElement
+          deleteElement: this.deleteElement,
+          sortArrayFunction: this.sortArrayFunction
         }}
       >
         <Router history={HISTORY}>

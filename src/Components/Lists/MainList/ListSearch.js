@@ -3,26 +3,28 @@ import styled from "styled-components";
 import Search from "@material-ui/icons/Search";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import { ArrayContext } from "../../../ShoppingListContext";
+import TextField from "@material-ui/core/TextField";
 
 class ListSearch extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      inputText:""
-    }
   }
 
-
   render() {
-    const {inputText, handleSearch} = this;
+    const { handleSearch, inputText } = this.props;
     return (
       <ArrayContext.Consumer>
         {({ listsArray }) => (
           <InputForm>
-            <InputSearch
-              placeholder="Поиск"
-              value = {inputText}
-              onChange={handleSearch(listsArray, inputText)}
+            <TextField
+              style={{ margin: 1 }} // ?
+              placeholder= "Поиск"
+              margin="normal"
+              InputLabelProps={{
+                shrink: true
+              }}
+              value={inputText}
+              onChange={handleSearch(listsArray)}
             />
             <SearchButton>
               <Search />
