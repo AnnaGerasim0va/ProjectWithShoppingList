@@ -19,7 +19,6 @@ const ROUTES = {
 
 class Menu extends Component {
   isActive = ({ url }) => {
-    //console.log("url", url);
 
     const { pathname } = this.props.location;
     // pathname = pathname.replace("/", "");
@@ -27,8 +26,6 @@ class Menu extends Component {
       //if (pathname != "/mainList" && pathname != "/about"){
       return true;
     } else {
-      console.log("pathname", pathname);
-      console.log("url", url);
       return url === ROUTES.main.url ? false : pathname.includes(url);
     }*/
     const currentPage = pathname.split("/")[1];
@@ -37,8 +34,6 @@ class Menu extends Component {
 
   render() {
     const { main, lists, about } = ROUTES;
-    console.log("render");
-    console.log("this.props", this.props);
     return (
       <Header>
         <HeaderButton isActive={this.isActive(main)}>

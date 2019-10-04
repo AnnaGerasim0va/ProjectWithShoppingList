@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import CreateNewList from "./CreateNewList";
 import ListSearch from "./ListSearch";
 import Add from "@material-ui/icons/Add";
-import Cancel from "@material-ui/icons/Cancel";
 import { ArrayContext } from "../../../ShoppingListContext";
-import {PopupMenu} from "../../PopupMenu"
+import { PopupMenu } from "../../PopupMenu";
+import DeleteWindow from "../../DeleteWindow";
 import {
   StyledDiv,
   Header,
-  ButtonDeleteDone,
   AddButton,
   ListBlock,
   StyledLink
 } from "./StyledMainList";
+import { isError } from "util";
 
 class MainList extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class MainList extends Component {
     this.state = {
       filterArray: {},
       newListName: "",
-      isExpanded: false,
+      isExpandedforAdd: false,
       inputText: "",
       isSort: false
     };
@@ -28,7 +28,7 @@ class MainList extends Component {
 
   handleSearch = () => event => {
     // const{name} = listsArray;
-    const {inputText} = this.state;
+    const { inputText } = this.state;
     const value = event.target.value;
     this.setState({
       inputText: value ? value[0].toUpperCase() + value.slice(1) : ""
@@ -38,15 +38,14 @@ class MainList extends Component {
   handleSortClick = () => {
     const { isSort } = this.state;
     this.setState({ isSort: true });
-  }
+  };
 
   handleExpanded = () => {
-    const { isExpanded } = this.state;
-    this.setState({ isExpanded: !isExpanded });
+    const { isExpandedforAdd } = this.state;
+    this.setState({ isExpandedforAdd: !isExpandedforAdd });
   };
 
   handleChange = event => {
-    console.log("event", event.target.value);
     this.setState({ newListName: event.target.value });
   };
 
@@ -62,63 +61,41 @@ class MainList extends Component {
       : listsArray;
   };
 
-  // findCurrentList = (listsArray, id) => { 
-  //   const currentList = listsArray.find(list => list.id === Number(id));
-  //   this.setState({ currentList });
-  // };
-
-  // handleListCreate = () => {
-  //   const { listsArray, newListName } = this.state;
-  //   if (newListName) {
-  //     // const listsArray = JSON.parse(localStorage.getItem("listsArray"));
-  //     listsArray.push({
-  //       name: newListName,
-  //       date: {},
-  //       productsList: [],
-  //       id: listsArray.length
-  //     });
-  //       // localStorage.setItem("listsArray", JSON.stringify(listsArray));
-  //       // console.log(listsArray);
-  //     this.setState({ listsArray, newListName: "" });
-  //   }
-  // };
-
   render() {
-    const { newListName, isExpanded, inputText } = this.state;
+    const { newListName, isExpandedforAdd, inputText } = this.state;
 
     return (
       <ArrayContext.Consumer>
-        {({listsArray, deleteElement, currentList}) => (
+        {({
+          listsArray
+        }) => (
           <StyledDiv>
             <Header>Списки покупок</Header>
             <PopupMenu />
             {/* <button onClick = {this.sortClick}>Сортировать</button> */}
-            <ListSearch inputText={inputText} handleSearch={this.handleSearch}/>
+
+            <ListSearch
+              inputText={inputText}
+              handleSearch={this.handleSearch}
+            />
             {/* {isSort && listsArray.sort((a,b) => (a>b)? 1 : -1) } */}
             {/* {listsArray.filter(list => 
               {
                 const {inputText} = this.state;
                 return(
                 list.name.includes(inputText))})} */}
-            {           
-              this.getFilteredLists(listsArray).map((list, index) => {              
+            {this.getFilteredLists(listsArray).map((list, index) => {
               const { id, name } = list;
               return (
-                
                 <ListBlock>
                   <StyledLink key={index} to={`/mainList/${id}`}>
                     {name}
                   </StyledLink>
-                  <ButtonDeleteDone onClick={deleteElement(id)}>
-                    <Cancel />
-                  </ButtonDeleteDone>
+                  <DeleteWindow />
                 </ListBlock>
               );
             })}
-            <AddButton onClick={this.handleExpanded}>
-              <Add />
-            </AddButton>
-            {isExpanded && (
+            {isExpandedforAdd && (
               <ListBlock>
                 <CreateNewList
                   newListName={newListName}
@@ -126,6 +103,12 @@ class MainList extends Component {
                 />
               </ListBlock>
             )}
+            <AddButton
+              isExpandedforAdd={isExpandedforAdd}
+              onClick={this.handleExpanded}
+            >
+              <Add />
+            </AddButton>
           </StyledDiv>
         )}
       </ArrayContext.Consumer>

@@ -28,8 +28,10 @@ class App extends Component {
     );
     this.state = {
       listsArray,
+      listsId: null,
       currentList: {},
       sortArray: [],
+      isDeletion: false,
       isOneClick: false,
       sortOption: {
         type: null,
@@ -38,36 +40,45 @@ class App extends Component {
     };
   }
 
+  handleDeletion = (id) => {
+    const { isDeletion, listsId } = this.state;
+    this.setState({listsId: id})
+    this.setState({ isDeletion: true });
+  };
+
   deleteElement = id => () => {
     const { listsArray } = this.state;
-    let isDeletion = window.confirm("Вы действительно хотите удалить список?");
-    if (isDeletion) {
-      this.setState({
-        listsArray: listsArray.filter(item => {
-          return item.id !== id;
-        })
-      });
-    }
+
+    this.setState({
+      listsArray: listsArray.filter(item => {
+        return item.id !== id;
+      })
+    });
   };
 
   sortArrayFunction = (listsArray, sortOption) => () => {
     let { type, reverse } = sortOption;
-    let {sortArray, isOneClick} = this.state;
+    let { sortArray, isOneClick } = this.state;
     if (type == "По имени") {
-      this.setState({isOneClick: !isOneClick});
+      this.setState({ isOneClick: !isOneClick });
       listsArray.sort((a, b) => (a > b ? 1 : -1));
-      if(!isOneClick){
+      console.log("listsArray1", listsArray, "isOneClick", isOneClick);
+      if (!isOneClick) {
         reverse = true;
+        console.log("isOneClick", isOneClick);
       }
 
       if (reverse) {
-      listsArray.reverse();
+        listsArray.reverse();
+        console.log("listsArray2", listsArray, "isOneClick", isOneClick);
       }
     }
-    if(type == "По количеству продуктов") {
-      this.setState({isOneClick: !isOneClick});
-      listsArray.sort((a,b)=> a.productsList.length > b.productsList.length ? 1 : -1);
-      if(!isOneClick){
+    if (type == "По количеству продуктов") {
+      this.setState({ isOneClick: !isOneClick });
+      listsArray.sort((a, b) =>
+        a.productsList.length > b.productsList.length ? 1 : -1
+      );
+      if (!isOneClick) {
         reverse = true;
       }
       if (reverse) {
@@ -106,13 +117,16 @@ class App extends Component {
   }
 
   render() {
-    const { listsArray, currentList, sortOption } = this.state;
+    const { listsArray, currentList, sortOption, isDeletion, listsId } = this.state;
     return (
       <ArrayContext.Provider
         value={{
           listsArray,
           currentList,
           sortOption,
+          listsId,
+          isDeletion,
+          handleDeletion: this.handleDeletion,
           handleListCreate: this.handleListCreate,
           deleteElement: this.deleteElement,
           sortArrayFunction: this.sortArrayFunction

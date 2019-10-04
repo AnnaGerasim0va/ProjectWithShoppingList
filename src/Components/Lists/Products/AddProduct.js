@@ -3,6 +3,7 @@ import Description from "./Description";
 import styled from "styled-components";
 import Add from "@material-ui/icons/Add";
 
+
 class AddProduct extends Component {
   constructor(props) {
     super(props);
@@ -55,12 +56,6 @@ class AddProduct extends Component {
     const { onSaveClick, idForAdd } = this.props;
     return (
       <>
-        <ButtonAdd
-          isExpandedForAdd={isExpandedForAdd}
-          onClick={this.handleExpanedForAdd}
-        >
-          <Add />
-        </ButtonAdd>
         {isExpandedForAdd && (
           <AddedBlock>
             <span>Создание нового продукта</span>
@@ -74,15 +69,21 @@ class AddProduct extends Component {
             />
           </AddedBlock>
         )}
+        <ButtonAdd
+          isExpandedForAdd={isExpandedForAdd}
+          onClick={this.handleExpanedForAdd}
+        >
+          <Add />
+        </ButtonAdd>
       </>
     );
   }
 }
 
-export const ButtonAdd = styled.div`
-  position: absolute;
+export const ButtonAdd = styled.li`
+  /* position: absolute;
   bottom: 30px;
-  right: 55px;
+  right: 55px; */
   display: flex;
   justify-content: center;
   align-items: center;

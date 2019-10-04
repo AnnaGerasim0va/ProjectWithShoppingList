@@ -49,5 +49,7 @@ export const StyledLink = styled(Link)`
   display: inline-block;
   padding: 30px 80px;
   text-decoration: none;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 15px;
   color: black;
 `;

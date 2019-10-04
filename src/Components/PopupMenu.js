@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import styled from "styled-components";
+import {theme} from "./Themes"
+import { ThemeProvider } from '@material-ui/styles';
 import { ArrayContext } from "../ShoppingListContext";
 
 export const PopupMenu = () => {
@@ -56,7 +58,11 @@ export const PopupMenu = () => {
               По количеству продуктов
             </MenuItem>
           </Menu>
-          <StyledButton variant="contained" onClick={sortArrayFunction(listsArray,sortOption)}>Сортировать</StyledButton>
+          <ThemeProvider theme={theme}>
+        <Button variant="contained" color="primary" onClick={sortArrayFunction(listsArray,sortOption)}>
+          Сортировать
+        </Button>
+      </ThemeProvider>
         </div>
       )}
     </ArrayContext.Consumer>

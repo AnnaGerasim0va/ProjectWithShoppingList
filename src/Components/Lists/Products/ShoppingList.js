@@ -57,8 +57,7 @@ class ShoppingList extends Component {
   };
 
   addProduct = product => {
-    console.log("addProduct");
-
+  
     //принимаем новый продукт
     const { currentList, isNameError } = this.state;
     //добавляем новый продукт в массив продуктов текущего списка
@@ -74,7 +73,7 @@ class ShoppingList extends Component {
 
   render() {
     const {
-      currentList: { productsList },
+      currentList: { name, productsList },
       boughtProduct
     } = this.state;
     const idForAdd = productsList.lenght;
@@ -86,7 +85,9 @@ class ShoppingList extends Component {
             <StyledLink to="/mainList/">
               <Back />
             </StyledLink>
+            <ListHeader>{name}</ListHeader>
             <ListToBuy>
+              <ListHeader>Купить</ListHeader>
               {productsList.map((product, index) => (
                 <Product
                   key={index + product.name}
@@ -101,7 +102,9 @@ class ShoppingList extends Component {
               ))}
               <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
             </ListToBuy>
-            <ListBought>{/* <Product /> */}</ListBought>
+            <ListBought>
+            <ListHeader>Куплено</ListHeader>
+            {/* <Product /> */}</ListBought>
           </ListBlock>
         )}
       </ArrayContext.Consumer>
@@ -123,6 +126,11 @@ export const ListBlock = styled.div`
   justify-content: center;
   border-radius: 7px;
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
+`;
+
+const ListHeader = styled.h2`
+text-align: center;
+color:#667571;
 `;
 
 export const StyledLink = styled(Link)`

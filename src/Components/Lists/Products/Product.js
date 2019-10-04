@@ -54,8 +54,6 @@ class Product extends Component {
       clickBoughtProduct
     } = this.props;
     const { product, newProduct, isExpanded, newName } = this.state;
-    console.log("newProduct", newProduct);
-    console.log("product", product);
 
     return (
       <ListElement onClick={clickBoughtProduct(productIndex)}>

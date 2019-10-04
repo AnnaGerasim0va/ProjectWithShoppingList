@@ -4,6 +4,8 @@ import Search from "@material-ui/icons/Search";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import { ArrayContext } from "../../../ShoppingListContext";
 import TextField from "@material-ui/core/TextField";
+import {theme} from "../../Themes"
+import { ThemeProvider } from '@material-ui/styles';
 
 class ListSearch extends Component {
   constructor(props) {
@@ -16,9 +18,11 @@ class ListSearch extends Component {
       <ArrayContext.Consumer>
         {({ listsArray }) => (
           <InputForm>
-            <TextField
-              style={{ margin: 1 }} // ?
-              placeholder= "Поиск"
+           <ThemeProvider theme={theme}>
+            <InputSearch
+              color="primary"
+              style={{ margin: 15 }} // ?
+              placeholder="Поиск"
               margin="normal"
               InputLabelProps={{
                 shrink: true
@@ -26,6 +30,7 @@ class ListSearch extends Component {
               value={inputText}
               onChange={handleSearch(listsArray)}
             />
+            </ThemeProvider>
             <SearchButton>
               <Search />
             </SearchButton>
@@ -67,10 +72,8 @@ const InputForm = styled.div`
   flex-direction: row;
 `;
 
-const InputSearch = styled.input`
-  padding: 3px 5px 3px 150px;
-  margin: 5px;
-  background-color: #e6fff2;
+const InputSearch = styled(TextField)`
+  width: 700px;
 `;
 
 export default ListSearch;

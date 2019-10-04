@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import {ButtonDeleteDone, InputField} from "./StyledMainList"
 import { ArrayContext } from "../../../ShoppingListContext";
 import Done from "@material-ui/icons/DoneOutline";
+import TextField from "@material-ui/core/TextField";
+import {theme} from "../../Themes"
+import { ThemeProvider } from '@material-ui/styles';
 
 class CreateNewList extends Component {
   render() {
@@ -12,9 +15,13 @@ class CreateNewList extends Component {
       <ArrayContext.Consumer>
       {({handleListCreate}) => (      
       <>
-        <InputField
+
+        <InputSearch
           placeholder="Введите имя нового списка"
           value={newListName}
+          InputLabelProps={{
+            shrink: true
+          }}
           onChange={handleChange}
         />
         <ButtonDeleteDone onClick={handleListCreate(newListName)}>
@@ -26,5 +33,10 @@ class CreateNewList extends Component {
     );
   }
 }
+
+const InputSearch = styled(TextField)`
+  width: 500px;
+  margin-left: 50%; 
+`;
 
 export default CreateNewList;
