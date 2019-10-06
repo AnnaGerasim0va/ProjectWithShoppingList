@@ -3,9 +3,10 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import styled from "styled-components";
-import {theme} from "./Themes"
-import { ThemeProvider } from '@material-ui/styles';
+import { theme } from "./Themes";
+import { ThemeProvider } from "@material-ui/styles";
 import { ArrayContext } from "../ShoppingListContext";
+import { SORT_OPTIONS } from "./Constants";
 
 export const PopupMenu = () => {
   let [anchorEl, setAnchorEl] = React.useState(null);
@@ -14,11 +15,8 @@ export const PopupMenu = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleToggle = (type, sortOption) => event => {
-    // setAnchorEl(event.currentTarget);
-    sortOption.type = type;
-    console.log("sortOption", sortOption);
-    // setAnchorEl(null);
+  const handleToggle = (type, changeSortOption) => () => {
+    changeSortOption(type);
     handleClose();
   };
 
@@ -26,11 +24,9 @@ export const PopupMenu = () => {
     setAnchorEl(null);
   };
 
-  //   const handle
-
   return (
     <ArrayContext.Consumer>
-      {({ sortOption, sortArrayFunction, listsArray }) => (
+      {({ sortOption, sortArrayFunction, listsArray, changeSortOption }) => (
         <div>
           <StyledButton
             aria-controls="simple-menu"
@@ -46,23 +42,29 @@ export const PopupMenu = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleToggle("По имени", sortOption)}>
-              По имени
-            </MenuItem>
-            <MenuItem onClick={handleToggle("По дате", sortOption)}>
-              По дате
+            <MenuItem
+              onClick={handleToggle(SORT_OPTIONS.name, changeSortOption)}
+            >
+              {SORT_OPTIONS.name}
             </MenuItem>
             <MenuItem
-              onClick={handleToggle("По количеству продуктов", sortOption)}
+              onClick={handleToggle(SORT_OPTIONS.date, changeSortOption)}
             >
-              По количеству продуктов
+              {SORT_OPTIONS.date}
+            </MenuItem>
+            <MenuItem onClick={handleToggle(SORT_OPTIONS.count, sortOption)}>
+              {SORT_OPTIONS.count}
             </MenuItem>
           </Menu>
           <ThemeProvider theme={theme}>
-        <Button variant="contained" color="primary" onClick={sortArrayFunction(listsArray,sortOption)}>
-          Сортировать
-        </Button>
-      </ThemeProvider>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={sortArrayFunction(listsArray, sortOption)}
+            >
+              Сортировать
+            </Button>
+          </ThemeProvider>
         </div>
       )}
     </ArrayContext.Consumer>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const StyledDiv = styled.div`
@@ -31,8 +31,9 @@ export const ButtonDeleteDone = styled.div`
   :hover {
     cursor: pointer;
     svg {
-      transition: all 0.6s;
-      transform: rotate(90deg);
+      ${({ disableRotate }) =>
+        disableRotate && css("transform: rotate(90deg)")};
+      transition: all 0.4s;
       font-size: 40px;
       font-weight: bold;
     }
@@ -50,14 +51,14 @@ export const AddButton = styled.div`
   border-radius: 25px;
   transform: ${({ isExpandedForAdd }) =>
     isExpandedForAdd ? "rotate(45deg)" : "none"};
-    transition: all 0.7s;
+  transition: all 0.7s;
   :hover {
     transition: all 0.7s;
     background-color: #d1d1d1;
     opacity: 0.8;
     cursor: pointer;
-    svg{
-      font-size:60px;
+    svg {
+      font-size: 60px;
     }
   }
   svg {

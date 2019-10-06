@@ -7,7 +7,6 @@ class Description extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      localName: "",
       nameTouched: false
     };
   }
@@ -19,6 +18,15 @@ class Description extends Component {
       this.setState({
         nameTouched: true
       });
+    }
+  };
+
+  onAddClick = (name, product, id) => () => {
+    const { onSaveClick } = this.props;
+    if (!name) {
+      this.setState({ nameTouched: true });
+    } else {
+      onSaveClick(product, id);
     }
   };
 
@@ -52,7 +60,7 @@ class Description extends Component {
           onChange={changeDescription("quantity")}
         />
         <CheckErrorBlock>
-          <button onClick={onSaveClick(product, id)}>✔</button>
+          <button onClick={this.onAddClick(name, product, id)}>✔</button>
         </CheckErrorBlock>
       </ChangeBlock>
     );

@@ -3,7 +3,6 @@ import Description from "./Description";
 import styled from "styled-components";
 import Add from "@material-ui/icons/Add";
 
-
 class AddProduct extends Component {
   constructor(props) {
     super(props);
@@ -41,19 +40,21 @@ class AddProduct extends Component {
     this.setState({ isExpandedForAdd: !isExpandedForAdd });
   };
 
-  handleSaveClick = product => () => {
+  handleSaveClick = product => {
     this.props.onSaveClick(product);
     this.setState({
       newProduct: {
         name: "",
         description: ""
-      }
+      },
+      isExpandedForAdd: false
     });
   };
 
   render() {
     const { isExpandedForAdd, newProduct } = this.state;
     const { onSaveClick, idForAdd } = this.props;
+    console.log("isExpandedForAdd", isExpandedForAdd);
     return (
       <>
         {isExpandedForAdd && (

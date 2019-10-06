@@ -120,3 +120,9 @@ export const LIST_FOR_CHILDREN = {
     }
   ]
 };
+
+export const SORT_OPTIONS = {
+  name: "По имени",
+  date: "По дате",
+  count: "По количеству продуктов"
+};

@@ -12,7 +12,11 @@ class ShoppingList extends Component {
     const { id } = this.props.match.params;
     // Возвращает данные выбранного списка
     const { listsArray } = context;
-    const currentList = listsArray.find(list => list.id === Number(id));
+    let currentList = listsArray.find(list => list.id === Number(id));
+    // Если Илья решит ввести свой id в урле
+    if (!currentList) {
+      currentList = listsArray[0];
+    }
     this.state = {
       currentList,
       boughtProduct: []
@@ -47,7 +51,9 @@ class ShoppingList extends Component {
     // this.setState({ currentList, boughtProduct });
   };
 
-  onSaveClick = (product, id) => () => {
+  onSaveClick = (product, id) => {
+    debugger;
+    console.log("asdasdasdasaaaaaaaaaaa");
     //product - новый продукт с измененным description и name
     // event.stopPropagation();
     const { currentList } = this.state;
@@ -57,7 +63,6 @@ class ShoppingList extends Component {
   };
 
   addProduct = product => {
-  
     //принимаем новый продукт
     const { currentList, isNameError } = this.state;
     //добавляем новый продукт в массив продуктов текущего списка
@@ -103,8 +108,9 @@ class ShoppingList extends Component {
               <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
             </ListToBuy>
             <ListBought>
-            <ListHeader>Куплено</ListHeader>
-            {/* <Product /> */}</ListBought>
+              <ListHeader>Куплено</ListHeader>
+              {/* <Product /> */}
+            </ListBought>
           </ListBlock>
         )}
       </ArrayContext.Consumer>
@@ -129,8 +135,8 @@ export const ListBlock = styled.div`
 `;
 
 const ListHeader = styled.h2`
-text-align: center;
-color:#667571;
+  text-align: center;
+  color: #667571;
 `;
 
 export const StyledLink = styled(Link)`
