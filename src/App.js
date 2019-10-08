@@ -13,6 +13,7 @@ import {
   LIST_FOR_WEEK,
   LIST_FOR_CHILDREN
 } from "./Components/Constants";
+import { SORT_OPTIONS } from "./Components/Constants";
 import { reverse } from "dns";
 import { log } from "util";
 
@@ -40,9 +41,9 @@ class App extends Component {
     };
   }
 
-  handleDeletion = (id) => {
+  handleDeletion = id => {
     const { isDeletion, listsId } = this.state;
-    this.setState({listsId: id})
+    this.setState({ listsId: id });
     this.setState({ isDeletion: true });
   };
 
@@ -56,12 +57,17 @@ class App extends Component {
     });
   };
 
+  changeSortOption = type => {
+    const { sortOption } = this.state;
+    this.setState({ sortOption: { ...sortOption, type: type } });
+  };
+
   sortArrayFunction = (listsArray, sortOption) => () => {
     let { type, reverse } = sortOption;
     let { sortArray, isOneClick } = this.state;
-    if (type == "По имени") {
+    if (type === SORT_OPTIONS.name) {
       this.setState({ isOneClick: !isOneClick });
-      listsArray.sort((a, b) => (a > b ? 1 : -1));
+      listsArray.sort((a, b) => (a.name > b.name ? 1 : -1));
       console.log("listsArray1", listsArray, "isOneClick", isOneClick);
       if (!isOneClick) {
         reverse = true;
@@ -73,7 +79,7 @@ class App extends Component {
         console.log("listsArray2", listsArray, "isOneClick", isOneClick);
       }
     }
-    if (type == "По количеству продуктов") {
+    if (type === SORT_OPTIONS.count) {
       this.setState({ isOneClick: !isOneClick });
       listsArray.sort((a, b) =>
         a.productsList.length > b.productsList.length ? 1 : -1
@@ -117,7 +123,13 @@ class App extends Component {
   }
 
   render() {
-    const { listsArray, currentList, sortOption, isDeletion, listsId } = this.state;
+    const {
+      listsArray,
+      currentList,
+      sortOption,
+      isDeletion,
+      listsId
+    } = this.state;
     return (
       <ArrayContext.Provider
         value={{
@@ -129,7 +141,8 @@ class App extends Component {
           handleDeletion: this.handleDeletion,
           handleListCreate: this.handleListCreate,
           deleteElement: this.deleteElement,
-          sortArrayFunction: this.sortArrayFunction
+          sortArrayFunction: this.sortArrayFunction,
+          changeSortOption: this.changeSortOption
         }}
       >
         <Router history={HISTORY}>

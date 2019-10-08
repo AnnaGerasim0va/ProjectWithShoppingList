@@ -13,9 +13,9 @@ import { ArrayContext } from "../ShoppingListContext";
 const DeleteWindow = () => {
   const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -29,7 +29,9 @@ const DeleteWindow = () => {
         Open alert dialog
       </Button> */}
           {/* {isDeletion && setOpen(true)} */}
-          <ButtonDeleteDone onClick={handleClickOpen}>
+          <ButtonDeleteDone
+            onClick={handleClickOpen}
+          >
             <Cancel />
           </ButtonDeleteDone>
           <Dialog
@@ -61,7 +63,6 @@ const DeleteWindow = () => {
           </Dialog>
         </div>
       )}
-      ;
     </ArrayContext.Consumer>
   );
 };

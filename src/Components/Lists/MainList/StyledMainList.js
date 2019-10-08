@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
 
 export const StyledDiv = styled.div`
   margin-top: 10%;
@@ -31,8 +32,9 @@ export const ButtonDeleteDone = styled.div`
   :hover {
     cursor: pointer;
     svg {
-      transition: all 0.6s;
-      transform: rotate(90deg);
+      transform: ${({ disableRotate }) =>
+        disableRotate ? "none" : "rotate(90deg)"};
+      transition: all 0.4s;
       font-size: 40px;
       font-weight: bold;
     }
@@ -50,14 +52,14 @@ export const AddButton = styled.div`
   border-radius: 25px;
   transform: ${({ isExpandedForAdd }) =>
     isExpandedForAdd ? "rotate(45deg)" : "none"};
-    transition: all 0.7s;
+  transition: all 0.7s;
   :hover {
     transition: all 0.7s;
     background-color: #d1d1d1;
     opacity: 0.8;
     cursor: pointer;
-    svg{
-      font-size:60px;
+    svg {
+      font-size: 60px;
     }
   }
   svg {
@@ -76,9 +78,7 @@ export const ListBlock = styled.div`
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;
 
-export const InputField = styled.input`
-  position: relative;
-  left: 25%;
-  padding: 3px 500px 3px 15px;
-  background-color: #e6fff2;
+export const InputSearch = styled(TextField)`
+  width: 95%;
+  margin-left: 50%;
 `;

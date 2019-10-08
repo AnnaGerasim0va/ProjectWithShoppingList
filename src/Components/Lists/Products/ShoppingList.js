@@ -5,6 +5,7 @@ import Product from "./Product";
 import { ArrayContext } from "../../../ShoppingListContext";
 import styled from "styled-components";
 import Back from "@material-ui/icons/ArrowBack";
+import { Container } from "@material-ui/core";
 
 class ShoppingList extends Component {
   constructor(props, context) {
@@ -12,7 +13,11 @@ class ShoppingList extends Component {
     const { id } = this.props.match.params;
     // Возвращает данные выбранного списка
     const { listsArray } = context;
-    const currentList = listsArray.find(list => list.id === Number(id));
+    let currentList = listsArray.find(list => list.id === Number(id));
+    // Если кто-то решит ввести свой id в урле
+    if (!currentList) {
+      currentList = listsArray[0];
+    }
     this.state = {
       currentList,
       boughtProduct: []
@@ -47,7 +52,7 @@ class ShoppingList extends Component {
     // this.setState({ currentList, boughtProduct });
   };
 
-  onSaveClick = (product, id) => () => {
+  onSaveChanges = (product, id) => {
     //product - новый продукт с измененным description и name
     // event.stopPropagation();
     const { currentList } = this.state;
@@ -57,7 +62,6 @@ class ShoppingList extends Component {
   };
 
   addProduct = product => {
-  
     //принимаем новый продукт
     const { currentList, isNameError } = this.state;
     //добавляем новый продукт в массив продуктов текущего списка
@@ -86,25 +90,33 @@ class ShoppingList extends Component {
               <Back />
             </StyledLink>
             <ListHeader>{name}</ListHeader>
-            <ListToBuy>
-              <ListHeader>Купить</ListHeader>
-              {productsList.map((product, index) => (
-                <Product
-                  key={index + product.name}
-                  productIndex={index}
-                  isDone={product.isDone}
-                  onProductClick={this.markElement}
-                  onDeleteClick={this.deleteElement}
-                  onSaveClick={this.onSaveClick}
-                  product={product}
-                  clickBoughtProduct={this.clickBoughtProduct}
-                />
-              ))}
-              <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
-            </ListToBuy>
-            <ListBought>
-            <ListHeader>Куплено</ListHeader>
-            {/* <Product /> */}</ListBought>
+            <ContainerDiv>
+              <ListToBuy>
+                <ListHeader>Купить</ListHeader>
+                <StyledDiv>
+                  {productsList.map((product, index) => (
+                    <Product
+                      key={index + product.name}
+                      productIndex={index}
+                      isDone={product.isDone}
+                      onProductClick={this.markElement}
+                      onDeleteClick={this.deleteElement}
+                      onSaveChanges={this.onSaveChanges}
+                      product={product}
+                      clickBoughtProduct={this.clickBoughtProduct}
+                    />
+                  ))}
+                  <AddProduct
+                    onSaveClick={this.addProduct}
+                    idForAdd={idForAdd}
+                  />
+                </StyledDiv>
+              </ListToBuy>
+              <ListBought>
+                <ListHeader>Куплено</ListHeader>
+                {/* <Product /> */}
+              </ListBought>
+            </ContainerDiv>
           </ListBlock>
         )}
       </ArrayContext.Consumer>
@@ -121,19 +133,28 @@ export const ListBlock = styled.div`
   background-color: #d4fcf1;
   /* display: flex;
   justify-content: space-between; */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   border-radius: 7px;
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;
 
 const ListHeader = styled.h2`
-text-align: center;
-color:#667571;
+  text-align: center;
+  color: #667571;
 `;
 
-export const StyledLink = styled(Link)`
+const ContainerDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
   :hover {
@@ -144,9 +165,6 @@ export const StyledLink = styled(Link)`
 export const ListToBuy = styled.ul`
   position: relative;
   width: 90%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   list-style: none;
   border-radius: 7px;
   box-shadow: 2px 2px 5px #347363;

@@ -3,7 +3,6 @@ import Description from "./Description";
 import styled from "styled-components";
 import Add from "@material-ui/icons/Add";
 
-
 class AddProduct extends Component {
   constructor(props) {
     super(props);
@@ -36,9 +35,10 @@ class AddProduct extends Component {
     });
   };
 
-  handleExpanedForAdd = () => {
+  handleExpandedForAdd = () => {
     const { isExpandedForAdd } = this.state;
     this.setState({ isExpandedForAdd: !isExpandedForAdd });
+    console.log("isExpandedForAdd", isExpandedForAdd);
   };
 
   handleSaveClick = product => () => {
@@ -47,13 +47,24 @@ class AddProduct extends Component {
       newProduct: {
         name: "",
         description: ""
-      }
+      },
+      isExpandedForAdd: false
     });
+  };
+
+  onAddClick = (name, product, id) => () => {
+    const { onSaveClick } = this.props;
+    if (!name) {
+      this.setState({ nameTouched: true });
+    } else {
+      onSaveClick(product, id);
+    }
   };
 
   render() {
     const { isExpandedForAdd, newProduct } = this.state;
-    const { onSaveClick, idForAdd } = this.props;
+    const { idForAdd } = this.props;
+   
     return (
       <>
         {isExpandedForAdd && (
@@ -61,17 +72,20 @@ class AddProduct extends Component {
             <span>Создание нового продукта</span>
             <Description
               creation
-              onSaveClick={this.handleSaveClick}
+              // onSaveClick={this.handleSaveClick}
               changeDescription={this.addDescription}
               changeName={this.addName}
               product={newProduct}
               id={idForAdd}
             />
+            <CheckErrorBlock>
+              <button onClick={this.handleSaveClick(newProduct)}>✔</button>
+            </CheckErrorBlock>
           </AddedBlock>
         )}
         <ButtonAdd
           isExpandedForAdd={isExpandedForAdd}
-          onClick={this.handleExpanedForAdd}
+          onClick={this.handleExpandedForAdd}
         >
           <Add />
         </ButtonAdd>
@@ -80,7 +94,14 @@ class AddProduct extends Component {
   }
 }
 
-export const ButtonAdd = styled.li`
+export default AddProduct;
+
+const CheckErrorBlock = styled.div`
+  height: 20px;
+  width: 20px;
+`;
+
+const ButtonAdd = styled.li`
   /* position: absolute;
   bottom: 30px;
   right: 55px; */
@@ -101,11 +122,11 @@ export const ButtonAdd = styled.li`
   }
   svg {
     font-size: 50px;
-    color: #707070;
+    color: teal;
   }
 `;
 
-export const AddedBlock = styled.li`
+ const AddedBlock = styled.li`
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -115,4 +136,4 @@ export const AddedBlock = styled.li`
   margin: 10px;
 `;
 
-export default AddProduct;
+
