@@ -25,7 +25,7 @@ class AddProduct extends Component {
     });
   };
 
-  addName = event => {
+  addName = ({ event }) => {
     const { newProduct } = this.state;
     this.setState({
       newProduct: {
@@ -41,7 +41,7 @@ class AddProduct extends Component {
     console.log("isExpandedForAdd", isExpandedForAdd);
   };
 
-  handleSaveClick = product => {
+  handleSaveClick = product => () => {
     this.props.onSaveClick(product);
     this.setState({
       newProduct: {
@@ -63,13 +63,10 @@ class AddProduct extends Component {
 
   render() {
     const { isExpandedForAdd, newProduct } = this.state;
-<<<<<<< HEAD
+
     const { idForAdd } = this.props;
-   
-=======
-    const { onSaveClick, idForAdd } = this.props;
     console.log("isExpandedForAdd", isExpandedForAdd);
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
+
     return (
       <>
         {isExpandedForAdd && (
@@ -131,7 +128,7 @@ const ButtonAdd = styled.li`
   }
 `;
 
- const AddedBlock = styled.li`
+const AddedBlock = styled.li`
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -140,5 +137,3 @@ const ButtonAdd = styled.li`
   padding: 10px;
   margin: 10px;
 `;
-
-

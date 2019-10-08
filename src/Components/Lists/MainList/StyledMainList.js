@@ -32,13 +32,9 @@ export const ButtonDeleteDone = styled.div`
   :hover {
     cursor: pointer;
     svg {
-<<<<<<< HEAD
       transform: ${({ disableRotate }) =>
-        disableRotate ? "none" : "rotate(90deg)"};
-=======
-      ${({ disableRotate }) =>
         disableRotate && css("transform: rotate(90deg)")};
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
+
       transition: all 0.4s;
       font-size: 40px;
       font-weight: bold;

@@ -37,15 +37,13 @@ export const PopupMenu = () => {
               {sortOption.type ? `${sortOption.type}` : `Не выбрано`}
             </StyledButton>
 
-            <ThemeProvider theme={theme}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={sortArrayFunction(listsArray, sortOption)}
-              >
-                Сортировать
-              </Button>
-            </ThemeProvider>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={sortArrayFunction(listsArray, sortOption)}
+            >
+              Сортировать
+            </Button>
           </StyledDiv>
           <Menu
             id="simple-menu"
@@ -64,22 +62,12 @@ export const PopupMenu = () => {
             >
               {SORT_OPTIONS.date}
             </MenuItem>
-            <MenuItem onClick={handleToggle(SORT_OPTIONS.count, sortOption)}>
+            <MenuItem
+              onClick={handleToggle(SORT_OPTIONS.count, changeSortOption)}
+            >
               {SORT_OPTIONS.count}
             </MenuItem>
           </Menu>
-<<<<<<< HEAD
-=======
-          <ThemeProvider theme={theme}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={sortArrayFunction(listsArray, sortOption)}
-            >
-              Сортировать
-            </Button>
-          </ThemeProvider>
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
         </div>
       )}
     </ArrayContext.Consumer>
@@ -87,11 +75,11 @@ export const PopupMenu = () => {
 };
 
 const StyledDiv = styled.div`
-border: 1px solid teal;
-border-radius: 5px;
-width:20%;
-display: flex;
-justify-content: space-between;
+  border: 1px solid teal;
+  border-radius: 5px;
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const StyledButton = styled(Button)`

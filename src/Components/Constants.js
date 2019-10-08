@@ -8,32 +8,32 @@ export const LIST_FOR_B_DAY = {
   productsList: [
     {
       name: "Свечи",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Шарики",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Конфеты",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Лента",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Колпаки",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Конфетти",
-      discription: {},
+      description: {},
       isDone: false
     }
   ]
@@ -49,42 +49,42 @@ export const LIST_FOR_WEEK = {
   productsList: [
     {
       name: "Картофель",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Помидоры",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Огурцы",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Яблоки",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Мясо",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Хлеб",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Фасоль",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Зелень",
-      discription: {},
+      description: {},
       isDone: false
     }
   ]
@@ -100,22 +100,22 @@ export const LIST_FOR_CHILDREN = {
   productsList: [
     {
       name: "Джинсы",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Кроссовки",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Футболка",
-      discription: {},
+      description: {},
       isDone: false
     },
     {
       name: "Толстовка",
-      discription: {},
+      description: {},
       isDone: false
     }
   ]

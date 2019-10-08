@@ -11,8 +11,8 @@ class Description extends Component {
     };
   }
 
-  handleNameChange = (id) => event => {
-    this.props.changeName(id,event);
+  handleNameChange = id => event => {
+    this.props.changeName({ id, event });
 
     if (!this.state.nameTouched) {
       this.setState({
@@ -21,9 +21,6 @@ class Description extends Component {
     }
   };
 
-<<<<<<< HEAD
-  
-=======
   onAddClick = (name, product, id) => () => {
     const { onSaveClick } = this.props;
     if (!name) {
@@ -32,7 +29,10 @@ class Description extends Component {
       onSaveClick(product, id);
     }
   };
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
 
   render() {
     const {
@@ -64,21 +64,12 @@ class Description extends Component {
           value={description ? description.quantity : ""}
           onChange={changeDescription("quantity")}
         />
-<<<<<<< HEAD
-        
-=======
-        <CheckErrorBlock>
-          <button onClick={this.onAddClick(name, product, id)}>✔</button>
-        </CheckErrorBlock>
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
       </ChangeBlock>
     );
   }
 }
 
 export default Description;
-
-
 
 const ChangeBlock = styled.div`
   display: flex;

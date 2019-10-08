@@ -14,11 +14,7 @@ class ShoppingList extends Component {
     // Возвращает данные выбранного списка
     const { listsArray } = context;
     let currentList = listsArray.find(list => list.id === Number(id));
-<<<<<<< HEAD
-    // Если кто-то решит ввести свой id в урле
-=======
-    // Если Илья решит ввести свой id в урле
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
+
     if (!currentList) {
       currentList = listsArray[0];
     }
@@ -56,19 +52,21 @@ class ShoppingList extends Component {
     // this.setState({ currentList, boughtProduct });
   };
 
-<<<<<<< HEAD
-  onSaveChanges = (product, id) => {
-=======
-  onSaveClick = (product, id) => {
-    debugger;
-    console.log("asdasdasdasaaaaaaaaaaa");
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
+  /*onSaveChanges = (product, id) => {};*/
+
+  onSaveChanges = handleListUpdate => (product, id) => {
     //product - новый продукт с измененным description и name
     // event.stopPropagation();
-    const { currentList } = this.state;
+    const productId = id;
+    const { id: listId } = this.props.match.params;
+    //const { currentList } = this.state;
     //удаляем старый продукт, добавляем новый измененный
-    currentList.productsList.splice(id, 1, product);
-    this.setState({ currentList });
+    //currentList.productsList.splice(id, 1, product);
+    // let newProductsList = [...currentList.productsList];
+    // newProductsList[productId] = product;
+    // const newList = { ...currentList, productsList: newProductsList };
+
+    handleListUpdate(listId, productId, product);
   };
 
   addProduct = product => {
@@ -90,29 +88,28 @@ class ShoppingList extends Component {
       currentList: { name, productsList },
       boughtProduct
     } = this.state;
-    const idForAdd = productsList.lenght;
+    const idForAdd = productsList.length;
 
     return (
       <ArrayContext.Consumer>
-        {() => (
+        {({ handleListUpdate }) => (
           <ListBlock>
             <StyledLink to="/mainList/">
               <Back />
             </StyledLink>
             <ListHeader>{name}</ListHeader>
-<<<<<<< HEAD
             <ContainerDiv>
               <ListToBuy>
                 <ListHeader>Купить</ListHeader>
                 <StyledDiv>
                   {productsList.map((product, index) => (
                     <Product
-                      key={index + product.name}
+                      key={index + "_product"}
                       productIndex={index}
                       isDone={product.isDone}
                       onProductClick={this.markElement}
                       onDeleteClick={this.deleteElement}
-                      onSaveChanges={this.onSaveChanges}
+                      onSaveChanges={this.onSaveChanges(handleListUpdate)}
                       product={product}
                       clickBoughtProduct={this.clickBoughtProduct}
                     />
@@ -128,28 +125,6 @@ class ShoppingList extends Component {
                 {/* <Product /> */}
               </ListBought>
             </ContainerDiv>
-=======
-            <ListToBuy>
-              <ListHeader>Купить</ListHeader>
-              {productsList.map((product, index) => (
-                <Product
-                  key={index + product.name}
-                  productIndex={index}
-                  isDone={product.isDone}
-                  onProductClick={this.markElement}
-                  onDeleteClick={this.deleteElement}
-                  onSaveClick={this.onSaveClick}
-                  product={product}
-                  clickBoughtProduct={this.clickBoughtProduct}
-                />
-              ))}
-              <AddProduct onSaveClick={this.addProduct} idForAdd={idForAdd} />
-            </ListToBuy>
-            <ListBought>
-              <ListHeader>Куплено</ListHeader>
-              {/* <Product /> */}
-            </ListBought>
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
           </ListBlock>
         )}
       </ArrayContext.Consumer>
@@ -173,15 +148,12 @@ export const ListBlock = styled.div`
 const ListHeader = styled.h2`
   text-align: center;
   color: #667571;
-<<<<<<< HEAD
 `;
 
 const ContainerDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-=======
->>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
 `;
 
 const StyledDiv = styled.div`

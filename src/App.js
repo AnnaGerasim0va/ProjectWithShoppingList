@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Router, Route } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/styles";
 import "./App.css";
 import { ArrayContext } from "./ShoppingListContext";
 import Home from "./Components/Header/Home";
@@ -16,6 +17,7 @@ import {
 import { SORT_OPTIONS } from "./Components/Constants";
 import { reverse } from "dns";
 import { log } from "util";
+import { theme } from "./Components/Themes";
 
 const HISTORY = createBrowserHistory();
 
@@ -28,6 +30,7 @@ class App extends Component {
       }
     );
     this.state = {
+      numbers: [],
       listsArray,
       listsId: null,
       currentList: {},
@@ -81,8 +84,8 @@ class App extends Component {
     }
     if (type === SORT_OPTIONS.count) {
       this.setState({ isOneClick: !isOneClick });
-      listsArray.sort((a, b) =>
-        a.productsList.length > b.productsList.length ? 1 : -1
+      listsArray.sort(
+        (a, b) => (a.productsList.length > b.productsList.length ? 1 : -1)
       );
       if (!isOneClick) {
         reverse = true;
@@ -111,6 +114,18 @@ class App extends Component {
     }
   };
 
+  handleListUpdate = (listId, productId, product) => {
+    const { listsArray } = this.state;
+
+    const newListsArray = [...listsArray];
+    const list = newListsArray[listId];
+    list.productsList[productId] = product;
+
+    this.setState({
+      listsArray: newListsArray
+    });
+  };
+
   componentWillMount() {
     // const { GlobalArray } = this.state;
     // const localStorageArray = JSON.stringify(
@@ -122,6 +137,13 @@ class App extends Component {
     // this.setState({ GlobalArray: localStorageArray });
   }
 
+  handleClick = () => {
+    const { numbers } = this.state;
+
+    numbers.splice(numbers.length, 0, numbers.length);
+    this.setState({ numbers:[...] });
+  };
+
   render() {
     const {
       listsArray,
@@ -131,28 +153,32 @@ class App extends Component {
       listsId
     } = this.state;
     return (
-      <ArrayContext.Provider
-        value={{
-          listsArray,
-          currentList,
-          sortOption,
-          listsId,
-          isDeletion,
-          handleDeletion: this.handleDeletion,
-          handleListCreate: this.handleListCreate,
-          deleteElement: this.deleteElement,
-          sortArrayFunction: this.sortArrayFunction,
-          changeSortOption: this.changeSortOption
-        }}
-      >
-        <Router history={HISTORY}>
-          <Header />
-          <Route exact path="/" component={Home} />
-          <Route exact path="/mainList" component={MainList} />
-          <Route path="/about" component={About} />
-          <Route path="/mainList/:id" component={ShoppingList} />
-        </Router>
-      </ArrayContext.Provider>
+      <ThemeProvider theme={theme}>
+        <ArrayContext.Provider
+          value={{
+            listsArray,
+            currentList,
+            sortOption,
+            listsId,
+            isDeletion,
+            handleDeletion: this.handleDeletion,
+            handleListCreate: this.handleListCreate,
+            deleteElement: this.deleteElement,
+            sortArrayFunction: this.sortArrayFunction,
+            changeSortOption: this.changeSortOption,
+            handleListUpdate: this.handleListUpdate
+          }}
+        >
+          <Router history={HISTORY}>
+            <Header />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/mainList" component={MainList} />
+            <Route path="/about" component={About} />
+            <Route path="/mainList/:id" component={ShoppingList} />
+            <button onClick={this.handleClick}>BUTTON</button>
+          </Router>
+        </ArrayContext.Provider>
+      </ThemeProvider>
     );
   }
 }
