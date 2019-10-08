@@ -31,9 +31,6 @@ class ListSearch extends Component {
               onChange={handleSearch(listsArray)}
             />
             </ThemeProvider>
-            <SearchButton>
-              <Search />
-            </SearchButton>
           </InputForm>
         )}
       </ArrayContext.Consumer>

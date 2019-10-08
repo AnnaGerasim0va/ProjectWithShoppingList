@@ -11,8 +11,8 @@ class Description extends Component {
     };
   }
 
-  handleNameChange = event => {
-    this.props.changeName(event);
+  handleNameChange = (id) => event => {
+    this.props.changeName(id,event);
 
     if (!this.state.nameTouched) {
       this.setState({
@@ -21,6 +21,9 @@ class Description extends Component {
     }
   };
 
+<<<<<<< HEAD
+  
+=======
   onAddClick = (name, product, id) => () => {
     const { onSaveClick } = this.props;
     if (!name) {
@@ -29,11 +32,11 @@ class Description extends Component {
       onSaveClick(product, id);
     }
   };
+>>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
 
   render() {
     const {
       creation,
-      onSaveClick,
       product,
       product: { name, isDone, description },
       id,
@@ -50,18 +53,24 @@ class Description extends Component {
         <TextField
           error={nameTouched && !name}
           label="Название"
+          style={{ margin: 8 }}
           value={name}
-          onChange={this.handleNameChange}
+          onChange={this.handleNameChange(id)}
           helperText={nameTouched && !name && "Пожалуйста, введите название"}
         />
         <TextField
           label="Количество"
+          style={{ margin: 8 }}
           value={description ? description.quantity : ""}
           onChange={changeDescription("quantity")}
         />
+<<<<<<< HEAD
+        
+=======
         <CheckErrorBlock>
           <button onClick={this.onAddClick(name, product, id)}>✔</button>
         </CheckErrorBlock>
+>>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
       </ChangeBlock>
     );
   }
@@ -69,10 +78,7 @@ class Description extends Component {
 
 export default Description;
 
-const CheckErrorBlock = styled.div`
-  height: 20px;
-  width: 20px;
-`;
+
 
 const ChangeBlock = styled.div`
   display: flex;

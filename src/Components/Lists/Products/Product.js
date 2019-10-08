@@ -34,6 +34,7 @@ class Product extends Component {
   };
 
   changeName = event => {
+    //откуда-то надо взять id, что тогда делать с ивентом
     event.stopPropagation();
     const { newProduct } = this.state;
     this.setState({
@@ -42,6 +43,8 @@ class Product extends Component {
         name: event.target.value
       }
     });
+    //чтобы на лету сохранять в глобальный стейт измененный продукт
+    this.props.onSaveChanges(newProduct, id);
   };
 
   render() {
@@ -49,7 +52,7 @@ class Product extends Component {
       isDone,
       onProductClick,
       onDeleteClick,
-      onSaveClick,
+      onSaveChanges,
       productIndex,
       clickBoughtProduct
     } = this.props;
@@ -67,7 +70,6 @@ class Product extends Component {
           product={newProduct}
           changeDescription={this.changeDescription}
           changeName={this.changeName}
-          onSaveClick={onSaveClick}
           id={productIndex}
         />
       </ListElement>
@@ -78,7 +80,7 @@ class Product extends Component {
 export const Title = styled.p`
   font-size: 20px;
   margin: 0 10px;
-  ${p =>
+  /* ${p =>
     p.isDone &&
     css`
        {
@@ -88,7 +90,8 @@ export const Title = styled.p`
           color: green;
         }
       }
-    `} :hover {
+    `}  */
+    :hover {
     color: green;
     cursor: pointer;
   }
@@ -126,12 +129,13 @@ export const ButtonDelete = styled.div`
   width: 30px;
   height: 30px;
   svg {
-    color: #1e9e6d;
+    color: teal;
   }
   :hover {
     cursor: pointer;
     svg {
-      transition: all 0.6s;
+      transition: all 0.4s;
+      transform: rotate(90deg);
       font-size: 40px;
       font-weight: bold;
     }

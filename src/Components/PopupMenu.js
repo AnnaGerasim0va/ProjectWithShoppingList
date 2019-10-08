@@ -28,13 +28,25 @@ export const PopupMenu = () => {
     <ArrayContext.Consumer>
       {({ sortOption, sortArrayFunction, listsArray, changeSortOption }) => (
         <div>
-          <StyledButton
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            {sortOption.type ? `${sortOption.type}` : `Не выбрано`}
-          </StyledButton>
+          <StyledDiv>
+            <StyledButton
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              {sortOption.type ? `${sortOption.type}` : `Не выбрано`}
+            </StyledButton>
+
+            <ThemeProvider theme={theme}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={sortArrayFunction(listsArray, sortOption)}
+              >
+                Сортировать
+              </Button>
+            </ThemeProvider>
+          </StyledDiv>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -56,6 +68,8 @@ export const PopupMenu = () => {
               {SORT_OPTIONS.count}
             </MenuItem>
           </Menu>
+<<<<<<< HEAD
+=======
           <ThemeProvider theme={theme}>
             <Button
               variant="contained"
@@ -65,15 +79,21 @@ export const PopupMenu = () => {
               Сортировать
             </Button>
           </ThemeProvider>
+>>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
         </div>
       )}
     </ArrayContext.Consumer>
   );
 };
 
+const StyledDiv = styled.div`
+border: 1px solid teal;
+border-radius: 5px;
+width:20%;
+display: flex;
+justify-content: space-between;
+`;
+
 const StyledButton = styled(Button)`
   background-color: #6ce0c2;
-  :hover {
-    color: #bef7e8;
-  }
 `;

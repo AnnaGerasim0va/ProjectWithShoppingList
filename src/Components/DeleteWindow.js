@@ -29,7 +29,9 @@ const DeleteWindow = () => {
         Open alert dialog
       </Button> */}
           {/* {isDeletion && setOpen(true)} */}
-          <ButtonDeleteDone onClick={handleClickOpen}>
+          <ButtonDeleteDone
+            onClick={handleClickOpen}
+          >
             <Cancel />
           </ButtonDeleteDone>
           <Dialog

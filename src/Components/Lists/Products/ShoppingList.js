@@ -5,6 +5,7 @@ import Product from "./Product";
 import { ArrayContext } from "../../../ShoppingListContext";
 import styled from "styled-components";
 import Back from "@material-ui/icons/ArrowBack";
+import { Container } from "@material-ui/core";
 
 class ShoppingList extends Component {
   constructor(props, context) {
@@ -13,7 +14,11 @@ class ShoppingList extends Component {
     // Возвращает данные выбранного списка
     const { listsArray } = context;
     let currentList = listsArray.find(list => list.id === Number(id));
+<<<<<<< HEAD
+    // Если кто-то решит ввести свой id в урле
+=======
     // Если Илья решит ввести свой id в урле
+>>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
     if (!currentList) {
       currentList = listsArray[0];
     }
@@ -51,9 +56,13 @@ class ShoppingList extends Component {
     // this.setState({ currentList, boughtProduct });
   };
 
+<<<<<<< HEAD
+  onSaveChanges = (product, id) => {
+=======
   onSaveClick = (product, id) => {
     debugger;
     console.log("asdasdasdasaaaaaaaaaaa");
+>>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
     //product - новый продукт с измененным description и name
     // event.stopPropagation();
     const { currentList } = this.state;
@@ -91,6 +100,35 @@ class ShoppingList extends Component {
               <Back />
             </StyledLink>
             <ListHeader>{name}</ListHeader>
+<<<<<<< HEAD
+            <ContainerDiv>
+              <ListToBuy>
+                <ListHeader>Купить</ListHeader>
+                <StyledDiv>
+                  {productsList.map((product, index) => (
+                    <Product
+                      key={index + product.name}
+                      productIndex={index}
+                      isDone={product.isDone}
+                      onProductClick={this.markElement}
+                      onDeleteClick={this.deleteElement}
+                      onSaveChanges={this.onSaveChanges}
+                      product={product}
+                      clickBoughtProduct={this.clickBoughtProduct}
+                    />
+                  ))}
+                  <AddProduct
+                    onSaveClick={this.addProduct}
+                    idForAdd={idForAdd}
+                  />
+                </StyledDiv>
+              </ListToBuy>
+              <ListBought>
+                <ListHeader>Куплено</ListHeader>
+                {/* <Product /> */}
+              </ListBought>
+            </ContainerDiv>
+=======
             <ListToBuy>
               <ListHeader>Купить</ListHeader>
               {productsList.map((product, index) => (
@@ -111,6 +149,7 @@ class ShoppingList extends Component {
               <ListHeader>Куплено</ListHeader>
               {/* <Product /> */}
             </ListBought>
+>>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
           </ListBlock>
         )}
       </ArrayContext.Consumer>
@@ -127,9 +166,6 @@ export const ListBlock = styled.div`
   background-color: #d4fcf1;
   /* display: flex;
   justify-content: space-between; */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   border-radius: 7px;
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
 `;
@@ -137,9 +173,24 @@ export const ListBlock = styled.div`
 const ListHeader = styled.h2`
   text-align: center;
   color: #667571;
+<<<<<<< HEAD
 `;
 
-export const StyledLink = styled(Link)`
+const ContainerDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+=======
+>>>>>>> 6081ad68cdea69d929ed843ced49f84ac1698aa5
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
   :hover {
@@ -150,9 +201,6 @@ export const StyledLink = styled(Link)`
 export const ListToBuy = styled.ul`
   position: relative;
   width: 90%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   list-style: none;
   border-radius: 7px;
   box-shadow: 2px 2px 5px #347363;
