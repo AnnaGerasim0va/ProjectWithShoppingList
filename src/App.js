@@ -30,7 +30,6 @@ class App extends Component {
       }
     );
     this.state = {
-      numbers: [],
       listsArray,
       listsId: null,
       currentList: {},
@@ -137,13 +136,6 @@ class App extends Component {
     // this.setState({ GlobalArray: localStorageArray });
   }
 
-  handleClick = () => {
-    const { numbers } = this.state;
-
-    numbers.splice(numbers.length, 0, numbers.length);
-    this.setState({ numbers:[...] });
-  };
-
   render() {
     const {
       listsArray,
@@ -175,7 +167,6 @@ class App extends Component {
             <Route exact path="/mainList" component={MainList} />
             <Route path="/about" component={About} />
             <Route path="/mainList/:id" component={ShoppingList} />
-            <button onClick={this.handleClick}>BUTTON</button>
           </Router>
         </ArrayContext.Provider>
       </ThemeProvider>
