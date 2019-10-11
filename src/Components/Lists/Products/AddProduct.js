@@ -25,7 +25,7 @@ class AddProduct extends Component {
     });
   };
 
-  addName = event => {
+  addName = ({ event }) => {
     const { newProduct } = this.state;
     this.setState({
       newProduct: {
@@ -63,8 +63,10 @@ class AddProduct extends Component {
 
   render() {
     const { isExpandedForAdd, newProduct } = this.state;
+
     const { idForAdd } = this.props;
-   
+    console.log("isExpandedForAdd", isExpandedForAdd);
+
     return (
       <>
         {isExpandedForAdd && (
@@ -126,7 +128,7 @@ const ButtonAdd = styled.li`
   }
 `;
 
- const AddedBlock = styled.li`
+const AddedBlock = styled.li`
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -135,5 +137,3 @@ const ButtonAdd = styled.li`
   padding: 10px;
   margin: 10px;
 `;
-
-

@@ -14,9 +14,20 @@ class Product extends Component {
      */
     this.state = {
       product: props.product,
-      newProduct: props.product,
+      //newProduct: props.product,
       isExpanded: false
     };
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return (
+      nextProps.product.name !== this.props.product.name ||
+      nextProps.product.description !== this.props.product.description
+    );
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount Product");
   }
 
   changeDescription = type => event => {
@@ -33,22 +44,31 @@ class Product extends Component {
     });
   };
 
-  changeName = event => {
+  changeName = ({ event, id }) => {
+    console.log("id", id);
+    console.log("event", event);
+
     //откуда-то надо взять id, что тогда делать с ивентом
     event.stopPropagation();
-    const { newProduct } = this.state;
-    this.setState({
+    //const { newProduct } = this.state;
+    /*this.setState({
       newProduct: {
         ...newProduct,
         name: event.target.value
       }
-    });
+    });*/
     //чтобы на лету сохранять в глобальный стейт измененный продукт
-    this.props.onSaveChanges(newProduct, id);
+    console.log("event.target.value", event.target.value);
+
+    this.props.onSaveChanges(
+      { ...this.props.product, name: event.target.value },
+      id
+    );
   };
 
   render() {
     const {
+      product,
       isDone,
       onProductClick,
       onDeleteClick,
@@ -56,7 +76,9 @@ class Product extends Component {
       productIndex,
       clickBoughtProduct
     } = this.props;
-    const { product, newProduct, isExpanded, newName } = this.state;
+    const { newProduct, isExpanded, newName } = this.state;
+
+    console.log("Product render", productIndex);
 
     return (
       <ListElement onClick={clickBoughtProduct(productIndex)}>
@@ -67,7 +89,7 @@ class Product extends Component {
           <Title isDone={isDone} onClick={onProductClick(productIndex)} />
         </StyledDiv>
         <Description
-          product={newProduct}
+          product={product}
           changeDescription={this.changeDescription}
           changeName={this.changeName}
           id={productIndex}

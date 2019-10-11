@@ -33,7 +33,8 @@ export const ButtonDeleteDone = styled.div`
     cursor: pointer;
     svg {
       transform: ${({ disableRotate }) =>
-        disableRotate ? "none" : "rotate(90deg)"};
+        disableRotate && css("transform: rotate(90deg)")};
+
       transition: all 0.4s;
       font-size: 40px;
       font-weight: bold;

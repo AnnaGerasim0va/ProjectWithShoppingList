@@ -14,7 +14,7 @@ class ShoppingList extends Component {
     // Возвращает данные выбранного списка
     const { listsArray } = context;
     let currentList = listsArray.find(list => list.id === Number(id));
-    // Если кто-то решит ввести свой id в урле
+
     if (!currentList) {
       currentList = listsArray[0];
     }
@@ -52,13 +52,21 @@ class ShoppingList extends Component {
     // this.setState({ currentList, boughtProduct });
   };
 
-  onSaveChanges = (product, id) => {
+  /*onSaveChanges = (product, id) => {};*/
+
+  onSaveChanges = handleListUpdate => (product, id) => {
     //product - новый продукт с измененным description и name
     // event.stopPropagation();
-    const { currentList } = this.state;
+    const productId = id;
+    const { id: listId } = this.props.match.params;
+    //const { currentList } = this.state;
     //удаляем старый продукт, добавляем новый измененный
-    currentList.productsList.splice(id, 1, product);
-    this.setState({ currentList });
+    //currentList.productsList.splice(id, 1, product);
+    // let newProductsList = [...currentList.productsList];
+    // newProductsList[productId] = product;
+    // const newList = { ...currentList, productsList: newProductsList };
+
+    handleListUpdate(listId, productId, product);
   };
 
   addProduct = product => {
@@ -80,11 +88,11 @@ class ShoppingList extends Component {
       currentList: { name, productsList },
       boughtProduct
     } = this.state;
-    const idForAdd = productsList.lenght;
+    const idForAdd = productsList.length;
 
     return (
       <ArrayContext.Consumer>
-        {() => (
+        {({ handleListUpdate }) => (
           <ListBlock>
             <StyledLink to="/mainList/">
               <Back />
@@ -96,12 +104,12 @@ class ShoppingList extends Component {
                 <StyledDiv>
                   {productsList.map((product, index) => (
                     <Product
-                      key={index + product.name}
+                      key={index + "_product"}
                       productIndex={index}
                       isDone={product.isDone}
                       onProductClick={this.markElement}
                       onDeleteClick={this.deleteElement}
-                      onSaveChanges={this.onSaveChanges}
+                      onSaveChanges={this.onSaveChanges(handleListUpdate)}
                       product={product}
                       clickBoughtProduct={this.clickBoughtProduct}
                     />
