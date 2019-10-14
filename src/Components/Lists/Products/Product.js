@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import Description from "./Description";
 import styled, { css } from "styled-components";
@@ -19,6 +18,17 @@ class Product extends Component {
       isExpanded: false
     };
   }
+
+  drag = event => {
+    const { dataTransfer, target } = event;
+    dataTransfer.setData("transfer", target.id);
+    //надо передавать объект product
+    //dataTransfer.setData("item", )
+  };
+
+  notallowDrop = event => {
+    event.stopPropagation();
+  };
 
   shouldComponentUpdate(nextProps) {
     return (
@@ -68,27 +78,30 @@ class Product extends Component {
   };
 
   render() {
+    const { drag, notallowDrop } = this;
     const {
       product,
       isDone,
       onProductClick,
       onDeleteClick,
       onSaveChanges,
-      productIndex,
-      clickBoughtProduct
+      productIndex
     } = this.props;
     const { newProduct, isExpanded, newName } = this.state;
 
     console.log("Product render", productIndex);
 
     return (
-      <ListElement onClick={clickBoughtProduct(productIndex)}>
+      <ListElement
+        id={productIndex}
+        draggable="true"
+        onDragStart={drag}
+        onDragOver={notallowDrop}
+      >
         <ButtonDelete onClick={onDeleteClick(productIndex)}>
           <Cancel />
         </ButtonDelete>
-        <StyledDiv>
-          <Title isDone={isDone} onClick={onProductClick(productIndex)} />
-        </StyledDiv>
+        <StyledDiv></StyledDiv>
         <Description
           product={product}
           changeDescription={this.changeDescription}
@@ -134,7 +147,7 @@ const ListElement = styled.li`
   }
 `;
 
- const StyledDiv = styled.div`
+const StyledDiv = styled.div`
   margin: 1px;
   width: 70%;
   display: flex;
@@ -176,4 +189,3 @@ const ButtonChange = styled.button`
 `;
 
 export default Product;
-

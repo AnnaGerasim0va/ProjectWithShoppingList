@@ -1,12 +1,14 @@
-
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AddProduct from "./AddProduct";
 import Product from "./Product";
+import DnDContainer from "././DnDContainer";
+import ListBought from "././ListBought";
 import { ArrayContext } from "../../../ShoppingListContext";
 import styled from "styled-components";
 import Back from "@material-ui/icons/ArrowBack";
 import { Container } from "@material-ui/core";
+import { all } from "q";
 
 class ShoppingList extends Component {
   constructor(props, context) {
@@ -80,6 +82,34 @@ class ShoppingList extends Component {
     }
   };
 
+  drop = event => {
+    event.preventDefault();
+    const { boughtProduct, currentList } = this.state;
+    console.log("event", event);
+    const data = event.dataTransfer.getData("transfer");
+    console.log("data", data);
+    // item - объект с айдишником и названием
+    // const item = event.dataTransfer.getData("product");
+
+    // if (block.id === "BoughtContainer") {
+    //   if (!boughtProduct.indexOf(item)) {
+    //     boughtProduct.push(item);
+    //     //currentList.splice()
+    //   }
+    // }
+    // if (block.id === "DnDContainer") {
+    //   // необходимо каждый раз обновлять стейт
+    // }
+
+    event.target.appendChild(document.getElementById(data));
+    console.log("boughtProduct", boughtProduct);
+  };
+
+  allowDrow = event => {
+    //Предотвращаем действие браузера по умолчанию
+    event.preventDefault();
+  };
+
   // componentWillMount(){
   //   findCurrentList
   // }
@@ -103,7 +133,15 @@ class ShoppingList extends Component {
               <ListToBuy>
                 <ListHeader>Купить</ListHeader>
                 <StyledDiv>
-                  {productsList.map((product, index) => (
+                  <DnDContainer
+                    onSaveChanges={this.onSaveChanges}
+                    deleteElement={this.deleteElement}
+                    handleListUpdate={handleListUpdate}
+                    productsList={productsList}
+                    drop={this.drop}
+                    allowDrow={this.allowDrow}
+                  />
+                  {/* {productsList.map((product, index) => (
                     <Product
                       key={index + "_product"}
                       productIndex={index}
@@ -114,17 +152,15 @@ class ShoppingList extends Component {
                       product={product}
                       clickBoughtProduct={this.clickBoughtProduct}
                     />
-                  ))}
+                  ))} */}
                   <AddProduct
                     onSaveClick={this.addProduct}
                     idForAdd={idForAdd}
                   />
                 </StyledDiv>
               </ListToBuy>
-              <ListBought>
-                <ListHeader>Куплено</ListHeader>
-                {/* <Product /> */}
-              </ListBought>
+              <ListBought drop={this.drop} allowDrow={this.allowDrow} />
+              {/* <Product /> */}
             </ContainerDiv>
           </ListBlock>
         )}
@@ -181,17 +217,4 @@ const ListToBuy = styled.ul`
   margin: 10px;
 `;
 
-const ListBought = styled.ul`
-  width: 90%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  list-style: none;
-  border-radius: 7px;
-  box-shadow: 2px 2px 5px #347363;
-  background-color: #7ee6bb;
-  margin: 10px;
-`;
-
 export default ShoppingList;
-
