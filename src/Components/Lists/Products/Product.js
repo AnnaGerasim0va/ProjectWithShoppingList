@@ -20,8 +20,11 @@ class Product extends Component {
   }
 
   drag = event => {
+    // const {product} = this.state;
     const { dataTransfer, target } = event;
+    console.log("event", event);
     dataTransfer.setData("transfer", target.id);
+
     //надо передавать объект product
     //dataTransfer.setData("item", )
   };
@@ -56,21 +59,7 @@ class Product extends Component {
   };
 
   changeName = ({ event, id }) => {
-    console.log("id", id);
-    console.log("event", event);
-
-    //откуда-то надо взять id, что тогда делать с ивентом
     event.stopPropagation();
-    //const { newProduct } = this.state;
-    /*this.setState({
-      newProduct: {
-        ...newProduct,
-        name: event.target.value
-      }
-    });*/
-    //чтобы на лету сохранять в глобальный стейт измененный продукт
-    console.log("event.target.value", event.target.value);
-
     this.props.onSaveChanges(
       { ...this.props.product, name: event.target.value },
       id
@@ -81,13 +70,10 @@ class Product extends Component {
     const { drag, notallowDrop } = this;
     const {
       product,
-      isDone,
-      onProductClick,
       onDeleteClick,
-      onSaveChanges,
       productIndex
     } = this.props;
-    const { newProduct, isExpanded, newName } = this.state;
+    //const { newProduct, isExpanded, newName } = this.state;
 
     console.log("Product render", productIndex);
 

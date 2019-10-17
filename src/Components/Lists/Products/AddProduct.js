@@ -111,6 +111,7 @@ const ButtonAdd = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+  order: 1;
   margin: 30px;
   width: 50px;
   height: 50px;

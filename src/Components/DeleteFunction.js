@@ -8,10 +8,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Cancel from "@material-ui/icons/Cancel";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { ButtonDeleteDone } from "././Lists/MainList/StyledMainList";
+import { ButtonDeleteDone } from "./Lists/MainList/StyledMainList";
 import { ArrayContext } from "../ShoppingListContext";
 
-const DeleteWindow = () => {
+const DeleteFunction = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -68,4 +68,4 @@ const DeleteWindow = () => {
   );
 };
 
-export default DeleteWindow;
+export default DeleteFunction;

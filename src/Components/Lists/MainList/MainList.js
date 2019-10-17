@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import CreateNewList from "./CreateNewList";
 import ListSearch from "./ListSearch";
 import Add from "@material-ui/icons/Add";
+import ComponentNotFound from "./ComponentNotFound"
 import { ArrayContext } from "../../../ShoppingListContext";
 import { PopupMenu } from "../../PopupMenu";
-import DeleteWindow from "../../DeleteWindow";
+import DeleteFunction from "../../DeleteFunction";
 import {
   StyledDiv,
   Header,
@@ -55,7 +56,6 @@ class MainList extends Component {
     return inputText
       ? listsArray.filter(list => {
           const { name } = list;
-
           return name.toLowerCase().includes(inputText.toLowerCase());
         })
       : listsArray;
@@ -63,12 +63,10 @@ class MainList extends Component {
 
   render() {
     const { newListName, isExpandedforAdd, inputText } = this.state;
-
+    const filterList = this.getFilteredLists;
     return (
       <ArrayContext.Consumer>
-        {({
-          listsArray
-        }) => (
+        {({ listsArray }) => (
           <StyledDiv>
             <Header>Списки покупок</Header>
             <PopupMenu />
@@ -78,23 +76,25 @@ class MainList extends Component {
               inputText={inputText}
               handleSearch={this.handleSearch}
             />
-            {/* {isSort && listsArray.sort((a,b) => (a>b)? 1 : -1) } */}
-            {/* {listsArray.filter(list => 
-              {
-                const {inputText} = this.state;
-                return(
-                list.name.includes(inputText))})} */}
-            {this.getFilteredLists(listsArray).map((list, index) => {
-              const { id, name } = list;
-              return (
-                <ListBlock>
-                  <StyledLink key={index} to={`/mainList/${id}`}>
-                    {name}
-                  </StyledLink>
-                  <DeleteWindow />
-                </ListBlock>
-              );
-            })}
+
+            {this.getFilteredLists(listsArray).length ? (
+              this.getFilteredLists(listsArray).map((list, index) => {
+                const { id, name } = list;
+
+                return (
+                  <ListBlock>
+                    <StyledLink key={index} to={`/mainList/${id}`}>
+                      {name}
+                    </StyledLink>
+                    <DeleteFunction />
+                  </ListBlock>
+                );
+              })
+              
+            ) : (
+              <ComponentNotFound />
+            )}
+
             {isExpandedforAdd && (
               <ListBlock>
                 <CreateNewList

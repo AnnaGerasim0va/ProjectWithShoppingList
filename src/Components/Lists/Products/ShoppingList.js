@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import AddProduct from "./AddProduct";
-import Product from "./Product";
-import DnDContainer from "././DnDContainer";
+import ListToBuy from "./ListToBuy";
 import ListBought from "././ListBought";
 import { ArrayContext } from "../../../ShoppingListContext";
 import styled from "styled-components";
@@ -85,9 +83,15 @@ class ShoppingList extends Component {
   drop = event => {
     event.preventDefault();
     const { boughtProduct, currentList } = this.state;
-    console.log("event", event);
     const data = event.dataTransfer.getData("transfer");
-    console.log("data", data);
+    console.log("aaa", event.target);
+    // можешь тут мапить ul и вытаскивать айдишники у детей
+    // так будешь понимать какие айцди у тебя находятся в левом
+    // столбце. и дальше с ними работать уже. странно, что у тебя
+    // порядок не меняется, когда меняешь местами.
+    // мне идти надо, я потом погляжу что ты сделала, но  я хз
+    // когда особожусь. думаю, что не скоро. я пошел
+
     // item - объект с айдишником и названием
     // const item = event.dataTransfer.getData("product");
 
@@ -130,18 +134,17 @@ class ShoppingList extends Component {
             </StyledLink>
             <ListHeader>{name}</ListHeader>
             <ContainerDiv>
-              <ListToBuy>
-                <ListHeader>Купить</ListHeader>
-                <StyledDiv>
-                  <DnDContainer
-                    onSaveChanges={this.onSaveChanges}
-                    deleteElement={this.deleteElement}
-                    handleListUpdate={handleListUpdate}
-                    productsList={productsList}
-                    drop={this.drop}
-                    allowDrow={this.allowDrow}
-                  />
-                  {/* {productsList.map((product, index) => (
+              <ListToBuy
+                onSaveChanges={this.onSaveChanges}
+                deleteElement={this.deleteElement}
+                handleListUpdate={handleListUpdate}
+                productsList={productsList}
+                drop={this.drop}
+                allowDrow={this.allowDrow}
+                onSaveClick={this.addProduct}
+                idForAdd={idForAdd}
+              />
+              {/* {productsList.map((product, index) => (
                     <Product
                       key={index + "_product"}
                       productIndex={index}
@@ -153,12 +156,6 @@ class ShoppingList extends Component {
                       clickBoughtProduct={this.clickBoughtProduct}
                     />
                   ))} */}
-                  <AddProduct
-                    onSaveClick={this.addProduct}
-                    idForAdd={idForAdd}
-                  />
-                </StyledDiv>
-              </ListToBuy>
               <ListBought drop={this.drop} allowDrow={this.allowDrow} />
               {/* <Product /> */}
             </ContainerDiv>
@@ -188,15 +185,9 @@ const ListHeader = styled.h2`
 `;
 
 const ContainerDiv = styled.div`
-  display: flex;
+ display: flex;
   flex-direction: row;
   justify-content: center;
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
 `;
 
 const StyledLink = styled(Link)`
@@ -205,16 +196,6 @@ const StyledLink = styled(Link)`
   :hover {
     color: #2b7054;
   }
-`;
-
-const ListToBuy = styled.ul`
-  position: relative;
-  width: 90%;
-  list-style: none;
-  border-radius: 7px;
-  box-shadow: 2px 2px 5px #347363;
-  background-color: #7ee6bb;
-  margin: 10px;
 `;
 
 export default ShoppingList;
