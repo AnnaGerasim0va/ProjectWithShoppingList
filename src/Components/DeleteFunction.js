@@ -10,8 +10,9 @@ import Cancel from "@material-ui/icons/Cancel";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ButtonDeleteDone } from "./Lists/MainList/StyledMainList";
 import { ArrayContext } from "../ShoppingListContext";
+import { Tooltip } from '@material-ui/core';
 
-const DeleteFunction = () => {
+const DeleteFunction = ({listId}) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -22,19 +23,26 @@ const DeleteFunction = () => {
     setOpen(false);
   };
 
+  const handleClickYes = (deleteElement, listId) => () => {
+    debugger
+    deleteElement(listId);
+    handleClose();
+  }
   return (
     <ArrayContext.Consumer>
-      {({ listsId, deleteElement }) => (
+      {({ deleteElement }) => (
         <div>
           {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open alert dialog
       </Button> */}
           {/* {isDeletion && setOpen(true)} */}
+          <Tooltip placement="left" title="Удалить список">
           <ButtonDeleteDone
             onClick={handleClickOpen}
           >
             <Cancel />
           </ButtonDeleteDone>
+          </Tooltip>
           <Dialog
             open={open}
             onClose={handleClose}
@@ -54,7 +62,7 @@ const DeleteFunction = () => {
                 Нет
               </Button>
               <Button
-                onClick={deleteElement(listsId)}
+                onClick={handleClickYes(deleteElement, listId)}
                 color="primary"
                 autoFocus
               >

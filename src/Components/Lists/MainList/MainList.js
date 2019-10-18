@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import CreateNewList from "./CreateNewList";
 import ListSearch from "./ListSearch";
 import Add from "@material-ui/icons/Add";
-import ComponentNotFound from "./ComponentNotFound"
+import ComponentNotFound from "./ComponentNotFound";
 import { ArrayContext } from "../../../ShoppingListContext";
 import { PopupMenu } from "../../PopupMenu";
 import DeleteFunction from "../../DeleteFunction";
+import { Tooltip } from "@material-ui/core";
 import {
   StyledDiv,
   Header,
@@ -86,11 +87,10 @@ class MainList extends Component {
                     <StyledLink key={index} to={`/mainList/${id}`}>
                       {name}
                     </StyledLink>
-                    <DeleteFunction />
+                    <DeleteFunction listId={id} />
                   </ListBlock>
                 );
               })
-              
             ) : (
               <ComponentNotFound />
             )}
@@ -103,12 +103,14 @@ class MainList extends Component {
                 />
               </ListBlock>
             )}
-            <AddButton
-              isExpandedforAdd={isExpandedforAdd}
-              onClick={this.handleExpanded}
-            >
-              <Add />
-            </AddButton>
+            <Tooltip title="Добавить список">
+              <AddButton
+                isExpandedforAdd={isExpandedforAdd}
+                onClick={this.handleExpanded}
+              >
+                <Add />
+              </AddButton>
+            </Tooltip>
           </StyledDiv>
         )}
       </ArrayContext.Consumer>

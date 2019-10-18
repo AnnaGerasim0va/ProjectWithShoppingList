@@ -144,18 +144,6 @@ class ShoppingList extends Component {
                 onSaveClick={this.addProduct}
                 idForAdd={idForAdd}
               />
-              {/* {productsList.map((product, index) => (
-                    <Product
-                      key={index + "_product"}
-                      productIndex={index}
-                      isDone={product.isDone}
-                      onProductClick={this.markElement}
-                      onDeleteClick={this.deleteElement}
-                      onSaveChanges={this.onSaveChanges(handleListUpdate)}
-                      product={product}
-                      clickBoughtProduct={this.clickBoughtProduct}
-                    />
-                  ))} */}
               <ListBought drop={this.drop} allowDrow={this.allowDrow} />
               {/* <Product /> */}
             </ContainerDiv>

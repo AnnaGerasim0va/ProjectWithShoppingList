@@ -43,18 +43,19 @@ class App extends Component {
     };
   }
 
-  handleDeletion = id => {
-    const { isDeletion, listsId } = this.state;
-    this.setState({ listsId: id });
-    this.setState({ isDeletion: true });
-  };
+  // handleDeletion = id => {
+  //   const { isDeletion, listsId } = this.state;
+  //   this.setState({ listsId: id });
+  //   this.setState({ isDeletion: true });
+  // };
 
-  deleteElement = id => () => {
+  deleteElement = listId => () => {
     const { listsArray } = this.state;
-
+    console.log("id", listId)
     this.setState({
       listsArray: listsArray.filter(item => {
-        return item.id !== id;
+        
+        return  item.id !== listId;
       })
     });
   };
@@ -151,9 +152,9 @@ class App extends Component {
             listsArray,
             currentList,
             sortOption,
-            listsId,
-            isDeletion,
-            handleDeletion: this.handleDeletion,
+            // listsId,
+            // isDeletion,
+            // handleDeletion: this.handleDeletion,
             handleListCreate: this.handleListCreate,
             deleteElement: this.deleteElement,
             sortArrayFunction: this.sortArrayFunction,

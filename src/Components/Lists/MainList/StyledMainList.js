@@ -78,6 +78,10 @@ export const ListBlock = styled.div`
   justify-content: space-between;
   border-radius: 7px;
   box-shadow: 6px 6px 10px rgb(49, 100, 100);
+  :hover{
+    background-color: #b5e6d8;
+    cursor: pointer;
+  }
 `;
 
 export const InputSearch = styled(TextField)`
