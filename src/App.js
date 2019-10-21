@@ -49,14 +49,10 @@ class App extends Component {
   //   this.setState({ isDeletion: true });
   // };
 
-  deleteElement = listId => () => {
+  deleteElement = ({ listId }) => {
     const { listsArray } = this.state;
-    console.log("id", listId)
     this.setState({
-      listsArray: listsArray.filter(item => {
-        
-        return  item.id !== listId;
-      })
+      listsArray: listsArray.filter(item => item.id !== listId)
     });
   };
 
@@ -84,8 +80,8 @@ class App extends Component {
     }
     if (type === SORT_OPTIONS.count) {
       this.setState({ isOneClick: !isOneClick });
-      listsArray.sort(
-        (a, b) => (a.productsList.length > b.productsList.length ? 1 : -1)
+      listsArray.sort((a, b) =>
+        a.productsList.length > b.productsList.length ? 1 : -1
       );
       if (!isOneClick) {
         reverse = true;
@@ -95,6 +91,14 @@ class App extends Component {
       }
     }
     this.setState(listsArray);
+  };
+
+  handleChangeListName = id => event => {
+    const { value } = event.target;
+    const { listsArray } = this.state;
+    const changebleListIndex = listsArray.findIndex(item => item.id === id);
+    listsArray[changebleListIndex].name = value;
+    this.setState({ listsArray });
   };
 
   handleListCreate = newListName => () => {
@@ -155,6 +159,7 @@ class App extends Component {
             // listsId,
             // isDeletion,
             // handleDeletion: this.handleDeletion,
+            handleChangeListName: this.handleChangeListName,
             handleListCreate: this.handleListCreate,
             deleteElement: this.deleteElement,
             sortArrayFunction: this.sortArrayFunction,

@@ -5,16 +5,9 @@ import Add from "@material-ui/icons/Add";
 import ComponentNotFound from "./ComponentNotFound";
 import { ArrayContext } from "../../../ShoppingListContext";
 import { PopupMenu } from "../../PopupMenu";
-import DeleteFunction from "../../DeleteFunction";
+import ListItem from "./ListItem";
 import { Tooltip } from "@material-ui/core";
-import {
-  StyledDiv,
-  Header,
-  AddButton,
-  ListBlock,
-  StyledLink
-} from "./StyledMainList";
-import { isError } from "util";
+import { StyledDiv, Header, AddButton, ListBlock } from "./StyledMainList";
 
 class MainList extends Component {
   constructor(props) {
@@ -23,6 +16,7 @@ class MainList extends Component {
       filterArray: {},
       newListName: "",
       isExpandedforAdd: false,
+      isChangeName: false,
       inputText: "",
       isSort: false
     };
@@ -62,57 +56,61 @@ class MainList extends Component {
       : listsArray;
   };
 
+  handleChangeListName = () => {
+    const { isChangeName } = this.state;
+    this.setState({ isChangeName: !isChangeName });
+  };
+
   render() {
-    const { newListName, isExpandedforAdd, inputText } = this.state;
-    const filterList = this.getFilteredLists;
+    const {
+      newListName,
+      isExpandedforAdd,
+      isChangeName,
+      inputText
+    } = this.state;
     return (
       <ArrayContext.Consumer>
-        {({ listsArray }) => (
-          <StyledDiv>
-            <Header>Списки покупок</Header>
-            <PopupMenu />
-            {/* <button onClick = {this.sortClick}>Сортировать</button> */}
+        {({ listsArray }) => {
+          const filterList = this.getFilteredLists(listsArray);
 
-            <ListSearch
-              inputText={inputText}
-              handleSearch={this.handleSearch}
-            />
+          return (
+            <StyledDiv>
+              <Header>Списки покупок</Header>
+              <PopupMenu />
+              {/* <button onClick = {this.sortClick}>Сортировать</button> */}
 
-            {this.getFilteredLists(listsArray).length ? (
-              this.getFilteredLists(listsArray).map((list, index) => {
-                const { id, name } = list;
+              <ListSearch
+                inputText={inputText}
+                handleSearch={this.handleSearch}
+              />
 
-                return (
-                  <ListBlock>
-                    <StyledLink key={index} to={`/mainList/${id}`}>
-                      {name}
-                    </StyledLink>
-                    <DeleteFunction listId={id} />
-                  </ListBlock>
-                );
-              })
-            ) : (
-              <ComponentNotFound />
-            )}
+              {filterList.length ? (
+                filterList.map((list, index) => {
+                  return <ListItem key={index} list={list} />;
+                })
+              ) : (
+                <ComponentNotFound />
+              )}
 
-            {isExpandedforAdd && (
-              <ListBlock>
-                <CreateNewList
-                  newListName={newListName}
-                  handleChange={this.handleChange}
-                />
-              </ListBlock>
-            )}
-            <Tooltip title="Добавить список">
-              <AddButton
-                isExpandedforAdd={isExpandedforAdd}
-                onClick={this.handleExpanded}
-              >
-                <Add />
-              </AddButton>
-            </Tooltip>
-          </StyledDiv>
-        )}
+              {isExpandedforAdd && (
+                <ListBlock>
+                  <CreateNewList
+                    newListName={newListName}
+                    handleChange={this.handleChange}
+                  />
+                </ListBlock>
+              )}
+              <Tooltip title="Добавить список">
+                <AddButton
+                  isExpandedforAdd={isExpandedforAdd}
+                  onClick={this.handleExpanded}
+                >
+                  <Add />
+                </AddButton>
+              </Tooltip>
+            </StyledDiv>
+          );
+        }}
       </ArrayContext.Consumer>
     );
   }

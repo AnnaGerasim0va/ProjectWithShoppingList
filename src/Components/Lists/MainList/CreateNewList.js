@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { Component } from "react";
 
-import { ButtonDeleteDone, InputSearch } from "./StyledMainList";
+import { ButtonMainList, InputSearch } from "./StyledMainList";
 import { ArrayContext } from "../../../ShoppingListContext";
 import Done from "@material-ui/icons/DoneOutline";
 import { Tooltip } from "@material-ui/core";
@@ -25,13 +25,13 @@ class CreateNewList extends Component {
               onChange={handleChange}
             />
             <Tooltip placement="left" title="Сохранить список">
-              <ButtonDeleteDone
+              <ButtonMainList
                 color="primary"
                 disableRotate
                 onClick={handleListCreate(newListName)}
               >
                 <Done />
-              </ButtonDeleteDone>
+              </ButtonMainList>
             </Tooltip>
           </>
         )}

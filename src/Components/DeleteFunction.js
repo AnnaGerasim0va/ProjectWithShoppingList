@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import React from "react";
 import Button from "@material-ui/core/Button";
@@ -6,13 +5,24 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import Cancel from "@material-ui/icons/Cancel";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { ButtonDeleteDone } from "./Lists/MainList/StyledMainList";
+import { ButtonMainList } from "./Lists/MainList/StyledMainList";
 import { ArrayContext } from "../ShoppingListContext";
-import { Tooltip } from '@material-ui/core';
+import { Tooltip } from "@material-ui/core";
+import NotificationSystem from "react-notification-system";
 
-const DeleteFunction = ({listId}) => {
+// const _notificationSystem = null;
+
+// const notificationWarning = event => {
+//   event.preventDefault();
+//   _notificationSystem.addNotification({
+//     message: 'Notification message',
+//     level: 'success'
+//   });
+
+// }
+const DeleteFunction = listId => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -24,10 +34,9 @@ const DeleteFunction = ({listId}) => {
   };
 
   const handleClickYes = (deleteElement, listId) => () => {
-    debugger
     deleteElement(listId);
     handleClose();
-  }
+  };
   return (
     <ArrayContext.Consumer>
       {({ deleteElement }) => (
@@ -37,11 +46,9 @@ const DeleteFunction = ({listId}) => {
       </Button> */}
           {/* {isDeletion && setOpen(true)} */}
           <Tooltip placement="left" title="Удалить список">
-          <ButtonDeleteDone
-            onClick={handleClickOpen}
-          >
-            <Cancel />
-          </ButtonDeleteDone>
+            <ButtonMainList onClick={handleClickOpen}>
+              <DeleteOutline />
+            </ButtonMainList>
           </Tooltip>
           <Dialog
             open={open}
@@ -50,7 +57,7 @@ const DeleteFunction = ({listId}) => {
             aria-describedby="alert-dialog-description"
           >
             <DialogTitle id="alert-dialog-title">
-              {"Удалить дынный список?"}
+              {"Удалить данный список?"}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">

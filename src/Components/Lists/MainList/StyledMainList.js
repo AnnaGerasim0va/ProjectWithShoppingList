@@ -18,7 +18,7 @@ export const Header = styled.h2`
   text-align: center;
 `;
 
-export const ButtonDeleteDone = styled.div`
+export const ButtonMainList = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

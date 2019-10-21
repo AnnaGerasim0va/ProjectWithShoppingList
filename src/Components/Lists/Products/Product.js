@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Description from "./Description";
 import styled, { css } from "styled-components";
 import Cancel from "@material-ui/icons/Cancel";
+import { Tooltip } from "@material-ui/core";
+import NotificationSystem from "react-notification-system";
 
 class Product extends Component {
   constructor(props) {
@@ -18,6 +20,16 @@ class Product extends Component {
       isExpanded: false
     };
   }
+
+  // _notificationSystem = null;
+
+  // notificationWarning = event => {
+  //   event.preventDefault();
+  //   this._notificationSystem.addNotification({
+  //     message: "Notification message",
+  //     level: "success"
+  //   });
+  // };
 
   drag = event => {
     // const {product} = this.state;
@@ -40,9 +52,9 @@ class Product extends Component {
     );
   }
 
-  componentWillUnmount() {
-    console.log("componentWillUnmount Product");
-  }
+  // componentDidMount() {
+  //   this._notificationSystem = this.refs.notificationSystem;
+  // }
 
   changeDescription = type => event => {
     event.stopPropagation();
@@ -68,11 +80,7 @@ class Product extends Component {
 
   render() {
     const { drag, notallowDrop } = this;
-    const {
-      product,
-      onDeleteClick,
-      productIndex
-    } = this.props;
+    const { product, onDeleteClick, productIndex } = this.props;
     //const { newProduct, isExpanded, newName } = this.state;
 
     console.log("Product render", productIndex);
@@ -84,9 +92,12 @@ class Product extends Component {
         onDragStart={drag}
         onDragOver={notallowDrop}
       >
-        <ButtonDelete onClick={onDeleteClick(productIndex)}>
-          <Cancel />
-        </ButtonDelete>
+        <Tooltip placement="left" title="Удалить продукт">
+          <ButtonDelete onClick={onDeleteClick(productIndex)}>
+            <Cancel />
+          </ButtonDelete>
+          {/* <NotificationSystem ref="notificationSystem" /> */}
+        </Tooltip>
         <StyledDiv></StyledDiv>
         <Description
           product={product}

@@ -1,8 +1,9 @@
-
 import React, { Component } from "react";
 import Description from "./Description";
 import styled from "styled-components";
 import Add from "@material-ui/icons/Add";
+import Done from "@material-ui/icons/DoneOutline";
+import { Tooltip } from "@material-ui/core";
 
 class AddProduct extends Component {
   constructor(props) {
@@ -81,9 +82,11 @@ class AddProduct extends Component {
               product={newProduct}
               id={idForAdd}
             />
-            <CheckErrorBlock>
-              <button onClick={this.handleSaveClick(newProduct)}>✔</button>
-            </CheckErrorBlock>
+              <Tooltip title="Сохранить продукт">
+                <ButtonSave onClick={this.handleSaveClick(newProduct)}>
+                  <Done />
+                </ButtonSave>
+              </Tooltip>
           </AddedBlock>
         )}
         <ButtonAdd
@@ -138,4 +141,27 @@ const AddedBlock = styled.li`
   box-shadow: 3px 3px 5px #7bedbc;
   padding: 10px;
   margin: 10px;
+`;
+
+const ButtonSave = styled.div`
+  /* display: flex;
+justify-content: center;
+align-items: center; */
+  position: relative;
+  margin: auto;
+  /* right: 10px;
+font-size: 30px; */
+  width: 30px;
+  height: 30px;
+  svg {
+    color: teal;
+  }
+  :hover {
+    cursor: pointer;
+    svg {
+      transition: all 0.4s;
+      font-size: 40px;
+      font-weight: bold;
+    }
+  }
 `;
