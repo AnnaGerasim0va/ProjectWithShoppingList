@@ -15,8 +15,6 @@ import {
   LIST_FOR_CHILDREN
 } from "./Components/Constants";
 import { SORT_OPTIONS } from "./Components/Constants";
-import { reverse } from "dns";
-import { log } from "util";
 import { theme } from "./Components/Themes";
 
 const HISTORY = createBrowserHistory();
@@ -41,8 +39,12 @@ class App extends Component {
         reverse: false
       }
     };
+    this.notificationSystemRef = React.createRef();
   }
 
+  componentDidMount(){
+    //
+  }
   // handleDeletion = id => {
   //   const { isDeletion, listsId } = this.state;
   //   this.setState({ listsId: id });
@@ -164,7 +166,8 @@ class App extends Component {
             deleteElement: this.deleteElement,
             sortArrayFunction: this.sortArrayFunction,
             changeSortOption: this.changeSortOption,
-            handleListUpdate: this.handleListUpdate
+            handleListUpdate: this.handleListUpdate,
+            notificationSystem: this.notificationSystemRef.current
           }}
         >
           <Router history={HISTORY}>

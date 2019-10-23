@@ -6,16 +6,28 @@ import { ArrayContext } from "../../../ShoppingListContext";
 import Done from "@material-ui/icons/DoneOutline";
 import { Tooltip } from "@material-ui/core";
 
-import { theme } from "../../Themes";
-import { ThemeProvider } from "@material-ui/styles";
+
 
 class CreateNewList extends Component {
+  handleCreateClick = (
+    handleListCreate,
+    newListName,
+    notificationSystem
+  ) => event => {
+    event.preventDefault();
+    handleListCreate(newListName);
+    notificationSystem.addNotification({
+      message: "Notification message",
+      level: "success"
+    });
+  };
+
   render() {
     const { newListName, handleChange } = this.props;
 
     return (
       <ArrayContext.Consumer>
-        {({ handleListCreate }) => (
+        {({ handleListCreate, notificationSystem }) => (
           <>
             <InputSearch
               placeholder="Введите имя нового списка"
@@ -28,7 +40,11 @@ class CreateNewList extends Component {
               <ButtonMainList
                 color="primary"
                 disableRotate
-                onClick={handleListCreate(newListName)}
+                onClick={this.handleCreateClick(
+                  handleListCreate,
+                  newListName,
+                  notificationSystem
+                )}
               >
                 <Done />
               </ButtonMainList>

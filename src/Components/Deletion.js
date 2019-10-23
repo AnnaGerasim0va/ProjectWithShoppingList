@@ -5,11 +5,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DeleteOutline from "@material-ui/icons/DeleteOutline";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { ButtonMainList } from "./Lists/MainList/StyledMainList";
 import { ArrayContext } from "../ShoppingListContext";
 import { Tooltip } from "@material-ui/core";
+import ButtonCreateDelete from "./Lists/MainList/ButtonCreateDelete";
 import NotificationSystem from "react-notification-system";
 
 // const _notificationSystem = null;
@@ -22,7 +21,7 @@ import NotificationSystem from "react-notification-system";
 //   });
 
 // }
-const DeleteFunction = listId => {
+const Deletion = (listId, handleClickCreate) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -45,11 +44,10 @@ const DeleteFunction = listId => {
         Open alert dialog
       </Button> */}
           {/* {isDeletion && setOpen(true)} */}
-          <Tooltip placement="left" title="Удалить список">
-            <ButtonMainList onClick={handleClickOpen}>
-              <DeleteOutline />
-            </ButtonMainList>
-          </Tooltip>
+          <ButtonCreateDelete
+            handleClickOpenDelete={handleClickOpen}
+            handleClickCreate={handleClickCreate}
+          />
           <Dialog
             open={open}
             onClose={handleClose}
@@ -83,4 +81,4 @@ const DeleteFunction = listId => {
   );
 };
 
-export default DeleteFunction;
+export default Deletion;
