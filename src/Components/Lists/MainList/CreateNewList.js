@@ -9,6 +9,7 @@ import { Tooltip } from "@material-ui/core";
 
 
 class CreateNewList extends Component {
+
   handleCreateClick = (
     handleListCreate,
     newListName,
@@ -17,7 +18,7 @@ class CreateNewList extends Component {
     event.preventDefault();
     handleListCreate(newListName);
     notificationSystem.addNotification({
-      message: "Notification message",
+      message: "Список был успешно создан",
       level: "success"
     });
   };

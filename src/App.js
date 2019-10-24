@@ -9,6 +9,8 @@ import ShoppingList from "./Components/Lists/Products/ShoppingList";
 import About from "./Components/Header/About";
 import Header from "./Components/Header/Header";
 import createBrowserHistory from "history/createBrowserHistory";
+import NotificationSystem from 'react-notification-system';
+import {successStyle} from "./Components/NotificationStyles"
 import {
   LIST_FOR_B_DAY,
   LIST_FOR_WEEK,
@@ -43,7 +45,8 @@ class App extends Component {
   }
 
   componentDidMount(){
-    //
+    this.forceUpdate();
+    console.log("this.notificationSystemRef", this.notificationSystemRef)
   }
   // handleDeletion = id => {
   //   const { isDeletion, listsId } = this.state;
@@ -177,6 +180,7 @@ class App extends Component {
             <Route path="/about" component={About} />
             <Route path="/mainList/:id" component={ShoppingList} />
           </Router>
+          <NotificationSystem ref={this.notificationSystemRef} style={successStyle} />
         </ArrayContext.Provider>
       </ThemeProvider>
     );
