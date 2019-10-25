@@ -48,7 +48,7 @@ export const AddButton = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  left: 50%;
+  margin: auto;
   width: 50px;
   height: 50px;
   border-radius: 25px;

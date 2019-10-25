@@ -10,7 +10,8 @@ import About from "./Components/Header/About";
 import Header from "./Components/Header/Header";
 import createBrowserHistory from "history/createBrowserHistory";
 import NotificationSystem from 'react-notification-system';
-import {successStyle} from "./Components/NotificationStyles"
+import {successStyle} from "./Components/NotificationStyles";
+import {axios} from "axios";
 import {
   LIST_FOR_B_DAY,
   LIST_FOR_WEEK,
@@ -47,6 +48,10 @@ class App extends Component {
   componentDidMount(){
     this.forceUpdate();
     console.log("this.notificationSystemRef", this.notificationSystemRef)
+    axios.get("http://localhost:3077/getLists")
+    .then(response=>(console.log("response",response)))
+    // .then(result=>{result})
+    .catch(er=>(console.log("error", er)))
   }
   // handleDeletion = id => {
   //   const { isDeletion, listsId } = this.state;
@@ -106,7 +111,7 @@ class App extends Component {
     this.setState({ listsArray });
   };
 
-  handleListCreate = newListName => () => {
+  handleListCreate = newListName => {
     const { listsArray } = this.state;
     if (newListName) {
       this.setState({

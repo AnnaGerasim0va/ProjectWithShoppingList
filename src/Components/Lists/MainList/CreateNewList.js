@@ -19,7 +19,8 @@ class CreateNewList extends Component {
     handleListCreate(newListName);
     notificationSystem.addNotification({
       message: "Список был успешно создан",
-      level: "success"
+      level: "success",
+      title: "Отлично!"
     });
   };
 

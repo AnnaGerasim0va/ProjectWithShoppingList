@@ -85,13 +85,7 @@ class ShoppingList extends Component {
     const { boughtProduct, currentList } = this.state;
     const data = event.dataTransfer.getData("transfer");
     console.log("aaa", event.target);
-    // можешь тут мапить ul и вытаскивать айдишники у детей
-    // так будешь понимать какие айцди у тебя находятся в левом
-    // столбце. и дальше с ними работать уже. странно, что у тебя
-    // порядок не меняется, когда меняешь местами.
-    // мне идти надо, я потом погляжу что ты сделала, но  я хз
-    // когда особожусь. думаю, что не скоро. я пошел
-
+    
     // item - объект с айдишником и названием
     // const item = event.dataTransfer.getData("product");
 

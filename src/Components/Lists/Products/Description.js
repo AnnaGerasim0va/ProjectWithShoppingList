@@ -22,6 +22,10 @@ class Description extends Component {
     }
   };
 
+  handleDescChange = id => event => {
+    this.props.changeDescription()
+  }
+
   onAddClick = (name, product, id) => () => {
     const { onSaveClick } = this.props;
     if (!name) {
