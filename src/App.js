@@ -9,49 +9,44 @@ import ShoppingList from "./Components/Lists/Products/ShoppingList";
 import About from "./Components/Header/About";
 import Header from "./Components/Header/Header";
 import createBrowserHistory from "history/createBrowserHistory";
-import NotificationSystem from 'react-notification-system';
-import {successStyle} from "./Components/NotificationStyles";
-import {axios} from "axios";
-import {
-  LIST_FOR_B_DAY,
-  LIST_FOR_WEEK,
-  LIST_FOR_CHILDREN
-} from "./Components/Constants";
+import NotificationSystem from "react-notification-system";
+import { successStyle } from "./Components/NotificationStyles";
+import axios from "axios";
 import { SORT_OPTIONS } from "./Components/Constants";
 import { theme } from "./Components/Themes";
 
 const HISTORY = createBrowserHistory();
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    const listsArray = [LIST_FOR_B_DAY, LIST_FOR_WEEK, LIST_FOR_CHILDREN].map(
-      (item, index) => {
-        return { ...item, id: index };
-      }
-    );
-    this.state = {
-      listsArray,
-      listsId: null,
-      currentList: {},
-      sortArray: [],
-      isDeletion: false,
-      isOneClick: false,
-      sortOption: {
-        type: null,
-        reverse: false
-      }
-    };
-    this.notificationSystemRef = React.createRef();
-  }
+  state = {
+    listsArray: [],
+    listsId: null,
+    currentList: {},
+    sortArray: [],
+    isDeletion: false,
+    isOneClick: false,
+    sortOption: {
+      type: null,
+      reverse: false
+    }
+  };
+  notificationSystemRef = React.createRef();
 
-  componentDidMount(){
-    this.forceUpdate();
-    console.log("this.notificationSystemRef", this.notificationSystemRef)
-    axios.get("http://localhost:3077/getLists")
-    .then(response=>(console.log("response",response)))
-    // .then(result=>{result})
-    .catch(er=>(console.log("error", er)))
+  getData = async () => {
+    try {
+      const listsArray = await axios.get("http://localhost:3077/getLists");
+      this.setState({
+        listsArray: listsArray.data.map((item, index) => {
+          return { ...item, id: index };
+        })
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  componentDidMount() {
+    this.getData();
   }
   // handleDeletion = id => {
   //   const { isDeletion, listsId } = this.state;
@@ -152,6 +147,7 @@ class App extends Component {
   }
 
   render() {
+    console.log("RENDER!!!!!");
     const {
       listsArray,
       currentList,
@@ -185,7 +181,10 @@ class App extends Component {
             <Route path="/about" component={About} />
             <Route path="/mainList/:id" component={ShoppingList} />
           </Router>
-          <NotificationSystem ref={this.notificationSystemRef} style={successStyle} />
+          <NotificationSystem
+            ref={this.notificationSystemRef}
+            style={successStyle}
+          />
         </ArrayContext.Provider>
       </ThemeProvider>
     );
